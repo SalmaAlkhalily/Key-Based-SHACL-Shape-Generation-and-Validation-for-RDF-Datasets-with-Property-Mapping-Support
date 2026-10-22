@@ -1,0 +1,54 @@
+PREFIX ex:  <http://example.com/ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX sh:  <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+ex:Shape2  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:located
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:located ?located .\n    ?other ex:located ?located .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:located ?located .\n    ?other ex:located ?located .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: located";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:located ?located .\n    ?other ex:located ?located .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:located ?located .\n    ?other ex:located ?located .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape1  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:length
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:height
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:latitude
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:latitude ?latitude .\n    ?other ex:latitude ?latitude .\n    ?this ex:height ?height .\n    ?other ex:height ?height .\n    ?this ex:length ?length .\n    ?other ex:length ?length .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:latitude ?latitude .\n    ?other ex:latitude ?latitude .\n    ?this ex:height ?height .\n    ?other ex:height ?height .\n    ?this ex:length ?length .\n    ?other ex:length ?length .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: latitude, height, length";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:latitude ?latitude .\n    ?other ex:latitude ?latitude .\n    ?this ex:height ?height .\n    ?other ex:height ?height .\n    ?this ex:length ?length .\n    ?other ex:length ?length .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:latitude ?latitude .\n    ?other ex:latitude ?latitude .\n    ?this ex:height ?height .\n    ?other ex:height ?height .\n    ?this ex:length ?length .\n    ?other ex:length ?length .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .

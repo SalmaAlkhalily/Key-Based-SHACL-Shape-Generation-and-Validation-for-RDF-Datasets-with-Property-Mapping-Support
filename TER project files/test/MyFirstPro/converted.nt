@@ -1,0 +1,15 @@
+<http://example.org/JohnDoe> <http://purl.org/dc/elements/1.1/creator> <http://example.org/TheGreatGatsby1> .
+<http://example.org/JohnDoe> <http://purl.org/dc/elements/1.1/title> "John Doe" .
+<http://example.org/JohnDoe> <http://purl.org/dc/elements/1.1/creator> <http://example.org/TheGreatGatsby> .
+<http://example.org/JohnDoe> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/Person> .
+<http://example.org/TheGreatGatsby> <http://purl.org/dc/elements/1.1/date> "1925" .
+<http://example.org/TheGreatGatsby> <http://purl.org/dc/elements/1.1/creator> "F. Scott Fitzgerald" .
+<http://example.org/TheGreatGatsby> <http://purl.org/dc/elements/1.1/title> "The Great Gatsby" .
+<http://example.org/TheGreatGatsby> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/Book> .
+<http://example.org/TheGreatGatsby1> <http://purl.org/dc/elements/1.1/date> "1925" .
+<http://example.org/TheGreatGatsby1> <http://purl.org/dc/elements/1.1/creator> "F. Scott Fitzgerald1" .
+<http://example.org/TheGreatGatsby1> <http://purl.org/dc/elements/1.1/title> "The Great Gatsby1" .
+<http://example.org/TheGreatGatsby1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/Book> .
+<http://example.org/JohnDoe2> <http://purl.org/dc/elements/1.1/title> "John Doe" .
+<http://example.org/JohnDoe2> <http://purl.org/dc/elements/1.1/creator> <http://example.org/TheGreatGatsby1> .
+<http://example.org/JohnDoe2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/Person> .

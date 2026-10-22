@@ -1,0 +1,37 @@
+PREFIX ex:  <http://example.com/ns#>
+PREFIX sh:  <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+ex:Shape2  a                 sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: age";
+                               sh:resultPath  ex:age;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:age ?age .\n        ?other ex:age ?age ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:age
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:age ?value .\n    }\n"
+                             ] .
+
+ex:Shape1  a                 sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: ssn, name";
+                               sh:resultPath  ex:ssn;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:ssn ?ssn .?this ex:name ?name .\n        ?other ex:ssn ?ssn ; ex:name ?name ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:name
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:ssn
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:ssn ?value .\n    }\n"
+                             ] .

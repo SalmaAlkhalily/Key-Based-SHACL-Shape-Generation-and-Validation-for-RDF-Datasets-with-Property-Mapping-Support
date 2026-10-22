@@ -1,0 +1,12 @@
+.toggle-btn {
+    -fx-base: #ff8c00;
+    -fx-text-fill: white;
+}
+
+.toggle-btn:selected {
+    -fx-base: #ff6600;
+    -fx-text-fill: white;
+    -fx-border-color: #ff6600;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, #ff6600, 5, 0.5, 0, 0);
+}

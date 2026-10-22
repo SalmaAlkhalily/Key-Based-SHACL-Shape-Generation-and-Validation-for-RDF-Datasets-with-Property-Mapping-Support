@@ -1,0 +1,1084 @@
+PREFIX ex:  <http://example.com/ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX sh:  <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+ex:Shape20  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:isconnectedtoinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wasdestroyedondate
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: wasdestroyedondate, isconnectedtoinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape33  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wascreatedondate
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wasdestroyedondate
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslatitude
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: haslatitude, wasdestroyedondate, wascreatedondate";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape6  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslength
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wasdestroyedondate
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: wasdestroyedondate, haslength";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape1  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslength
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:hasheight
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslatitude
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: haslatitude, hasheight, haslength";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape16  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:hasheight
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wasdestroyedondate
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: wasdestroyedondate, hasheight";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape29  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:isconnectedtoinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslongitude
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: haslongitude, isconnectedtoinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape11  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:ownsinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslatitude
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wascreatedondate
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:createdinv
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: haslatitude, createdinv, wascreatedondate, ownsinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape24  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wascreatedondate
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wasdestroyedondate
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:islocatedin
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: islocatedin, wasdestroyedondate, wascreatedondate";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape37  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:createdinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wasdestroyedondate
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: wasdestroyedondate, createdinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape32  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wascreatedondate
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:isconnectedtoinv
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: isconnectedtoinv, wascreatedondate";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape5  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:ownsinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wascreatedondate
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslongitude
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:createdinv
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: haslongitude, createdinv, wascreatedondate, ownsinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape40  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:ownsinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:isconnectedtoinv
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: isconnectedtoinv, ownsinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape15  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:islocatedin
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:ownsinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:createdinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslatitude
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: islocatedin, haslatitude, createdinv, ownsinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape28  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:ownsinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wascreatedondate
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:islocatedin
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: islocatedin, wascreatedondate, ownsinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape10  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:ownsinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wascreatedondate
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:hasheight
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: hasheight, wascreatedondate, ownsinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape23  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslatitude
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:hasheight
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:islocatedin
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:createdinv
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: islocatedin, haslatitude, hasheight, createdinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape36  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslongitude
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:createdinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:islocatedin
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:hasheight
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: islocatedin, haslongitude, hasheight, createdinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape9  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:hasduration
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:hasduration ?hasduration .\n    ?other ex:hasduration ?hasduration .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:hasduration ?hasduration .\n    ?other ex:hasduration ?hasduration .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: hasduration";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:hasduration ?hasduration .\n    ?other ex:hasduration ?hasduration .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:hasduration ?hasduration .\n    ?other ex:hasduration ?hasduration .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape31  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:ownsinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:islocatedin
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:createdinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslongitude
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: islocatedin, haslongitude, createdinv, ownsinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape4  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:createdinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslength
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:hasheight
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: hasheight, haslength, createdinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape19  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:isconnectedtoinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslength
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: haslength, isconnectedtoinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape14  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:isconnectedtoinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslatitude
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: haslatitude, isconnectedtoinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape27  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:islocatedin
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:createdinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wascreatedondate
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:hasheight
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: islocatedin, hasheight, createdinv, wascreatedondate";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape22  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:ownsinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslength
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: haslength, ownsinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape35  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:isconnectedtoinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:hasheight
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: hasheight, isconnectedtoinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape8  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslength
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslongitude
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: haslongitude, haslength";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape30  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:participatedininv
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:participatedininv ?participatedininv .\n    ?other ex:participatedininv ?participatedininv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:participatedininv ?participatedininv .\n    ?other ex:participatedininv ?participatedininv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: participatedininv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:participatedininv ?participatedininv .\n    ?other ex:participatedininv ?participatedininv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:participatedininv ?participatedininv .\n    ?other ex:participatedininv ?participatedininv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape3  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslongitude
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wasdestroyedondate
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: wasdestroyedondate, haslongitude";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape18  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haspages
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:haspages ?haspages .\n    ?other ex:haspages ?haspages .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:haspages ?haspages .\n    ?other ex:haspages ?haspages .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: haspages";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haspages ?haspages .\n    ?other ex:haspages ?haspages .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haspages ?haspages .\n    ?other ex:haspages ?haspages .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape13  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslongitude
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:hasheight
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:islocatedin
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:ownsinv
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: islocatedin, haslongitude, hasheight, ownsinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslongitude ?haslongitude .\n    ?other ex:haslongitude ?haslongitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape26  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:isconnectedtoinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:islocatedin
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: islocatedin, isconnectedtoinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape39  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wasdestroyedondate
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslatitude
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:islocatedin
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: islocatedin, haslatitude, wasdestroyedondate";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape21  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:ownsinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wasdestroyedondate
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: wasdestroyedondate, ownsinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .\n    ?other ex:wasdestroyedondate ?wasdestroyedondate .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape34  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslatitude
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:ownsinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:islocatedin
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:hasheight
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: islocatedin, haslatitude, hasheight, ownsinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedin ?islocatedin .\n    ?other ex:islocatedin ?islocatedin .\n    ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:hasheight ?hasheight .\n    ?other ex:hasheight ?hasheight .\n    ?this ex:ownsinv ?ownsinv .\n    ?other ex:ownsinv ?ownsinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape7  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:isconnectedto
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:isconnectedto ?isconnectedto .\n    ?other ex:isconnectedto ?isconnectedto .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:isconnectedto ?isconnectedto .\n    ?other ex:isconnectedto ?isconnectedto .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: isconnectedto";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:isconnectedto ?isconnectedto .\n    ?other ex:isconnectedto ?isconnectedto .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:isconnectedto ?isconnectedto .\n    ?other ex:isconnectedto ?isconnectedto .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape2  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:islocatedininv
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:islocatedininv ?islocatedininv .\n    ?other ex:islocatedininv ?islocatedininv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:islocatedininv ?islocatedininv .\n    ?other ex:islocatedininv ?islocatedininv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: islocatedininv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedininv ?islocatedininv .\n    ?other ex:islocatedininv ?islocatedininv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:islocatedininv ?islocatedininv .\n    ?other ex:islocatedininv ?islocatedininv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape17  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:isconnectedtoinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:createdinv
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: createdinv, isconnectedtoinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n    ?this ex:isconnectedtoinv ?isconnectedtoinv .\n    ?other ex:isconnectedtoinv ?isconnectedtoinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape12  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:wascreatedondate
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslength
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: haslength, wascreatedondate";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:wascreatedondate ?wascreatedondate .\n    ?other ex:wascreatedondate ?wascreatedondate .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape25  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:createdinv
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslength
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslatitude
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: haslatitude, haslength, createdinv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:haslatitude ?haslatitude .\n    ?other ex:haslatitude ?haslatitude .\n    ?this ex:haslength ?haslength .\n    ?other ex:haslength ?haslength .\n    ?this ex:createdinv ?createdinv .\n    ?other ex:createdinv ?createdinv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape38  a        sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:happenedininv
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n        ?this ex:happenedininv ?happenedininv .\n    ?other ex:happenedininv ?happenedininv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n        ?this ex:happenedininv ?happenedininv .\n    ?other ex:happenedininv ?happenedininv .\n\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: happenedininv";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:happenedininv ?happenedininv .\n    ?other ex:happenedininv ?happenedininv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n        ?this ex:happenedininv ?happenedininv .\n    ?other ex:happenedininv ?happenedininv .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .

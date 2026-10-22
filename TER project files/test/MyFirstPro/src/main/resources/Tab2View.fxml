@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import org.fxmisc.flowless.VirtualizedScrollPane?>
+<?import org.fxmisc.richtext.StyleClassedTextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.myfirstpro.Tab2Controller" spacing="15" style="-fx-padding: 20;">
+    <Label text="Generate SHACL Shapes for Keys" style="-fx-font-size: 18px; -fx-text-fill: #333;"/>
+    <Separator/>
+
+    <VBox spacing="10">
+        <HBox spacing="10">
+            <Button fx:id="chooseKeysFileButton" onAction="#chooseKeysFile" text="Choose Keys File"
+                    style="-fx-base: #0078d7; -fx-text-fill: white;"/>
+        </HBox>
+
+        <Label text="Keys File Content:"/>
+        <VirtualizedScrollPane>
+            <content>
+                <StyleClassedTextArea fx:id="keysTextArea" wrapText="true"
+                                      style="-fx-control-inner-background: #f9f9f9; -fx-border-color: #ddd; -fx-border-width: 1px;"/>
+            </content>
+        </VirtualizedScrollPane>
+        <VBox spacing="NaN" fx:id="equivVbox" visible="false" managed="false">
+            <HBox spacing="10">
+                <Button fx:id="chooseEquivFileBtn" onAction="#chooseMappingFile" text="Choose Mapping File"
+                        style="-fx-base: #0078d7; -fx-text-fill: white;"/>
+            </HBox>
+
+            <Label text="Mapping File Content:"/>
+            <VirtualizedScrollPane>
+                <content>
+                    <StyleClassedTextArea fx:id="mappingTextArea" wrapText="true"
+                                          style="-fx-control-inner-background: #f9f9f9; -fx-border-color: #ddd; -fx-border-width: 1px;"/>
+                </content>
+            </VirtualizedScrollPane>
+        </VBox>
+        <HBox spacing="10">
+            <Button fx:id="generateShapesButton" disable="true" onAction="#generateShapes" text="Generate SHACL Shapes"
+                    style="-fx-base: #4caf50; -fx-text-fill: white;"/>
+            <Button fx:id="saveShapesButton" disable="true" onAction="#saveGeneratedShapesToFile" text="Save Shapes"
+                    style="-fx-base: #0078d7; -fx-text-fill: white;"/>
+        </HBox>
+
+        <Label text="Generated SHACL Shapes:"/>
+        <VirtualizedScrollPane>
+            <content>
+                <StyleClassedTextArea fx:id="shapesTextArea" wrapText="true"
+                                      style="-fx-control-inner-background: #f9f9f9; -fx-border-color: #ddd; -fx-border-width: 1px;"/>
+            </content>
+        </VirtualizedScrollPane>
+    </VBox>
+</VBox>

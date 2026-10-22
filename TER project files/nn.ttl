@@ -1,0 +1,114 @@
+PREFIX sh:  <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+<Shape7>  a          sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <street>
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <category>
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: category, street";
+                       sh:select   "SELECT ?this\nWHERE {\n    ?this category ?value .\n    ?other category ?value .\n?this street ?value .\n    ?other street ?value .\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+<Shape2>  a          sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <phone_number>
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <street>
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: street, phone_number";
+                       sh:select   "SELECT ?this\nWHERE {\n    ?this street ?value .\n    ?other street ?value .\n?this phone_number ?value .\n    ?other phone_number ?value .\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+<Shape5>  a          sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <phone_number>
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <name>
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: name, phone_number";
+                       sh:select   "SELECT ?this\nWHERE {\n    ?this name ?value .\n    ?other name ?value .\n?this phone_number ?value .\n    ?other phone_number ?value .\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+<Shape8>  a          sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <category>
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <name>
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: name, category";
+                       sh:select   "SELECT ?this\nWHERE {\n    ?this name ?value .\n    ?other name ?value .\n?this category ?value .\n    ?other category ?value .\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+<Shape3>  a          sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <has_address>
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: has_address";
+                       sh:select   "SELECT ?this\nWHERE {\n    ?this has_address ?value .\n    ?other has_address ?value .\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+<Shape6>  a          sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <phone_number>
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <category>
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: category, phone_number";
+                       sh:select   "SELECT ?this\nWHERE {\n    ?this category ?value .\n    ?other category ?value .\n?this phone_number ?value .\n    ?other phone_number ?value .\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+<Shape1>  a          sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <street>
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <name>
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: name, street";
+                       sh:select   "SELECT ?this\nWHERE {\n    ?this name ?value .\n    ?other name ?value .\n?this street ?value .\n    ?other street ?value .\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+<Shape4>  a          sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <is_in_city>
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: is_in_city";
+                       sh:select   "SELECT ?this\nWHERE {\n    ?this is_in_city ?value .\n    ?other is_in_city ?value .\n    FILTER (?this != ?other)\n}\n"
+                     ] .

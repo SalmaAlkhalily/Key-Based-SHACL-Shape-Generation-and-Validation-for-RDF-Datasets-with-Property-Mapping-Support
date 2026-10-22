@@ -1,0 +1,39 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ex: <http://example.com/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+
+ex:Shape2
+    a sh:NodeShape ;
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:select """
+            PREFIX ex: <http://example.com/ns#>
+            SELECT ?node
+            WHERE {
+                ?node ex:isLocatedInINV ?value .
+            }
+        """ ;
+    ] ;
+    sh:property [
+        sh:path ex:isLocatedInINV ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Duplicate detected for properties: isLocatedInINV" ;
+        sh:resultPath ex:isLocatedInINV ;
+        sh:select """
+            PREFIX ex: <http://example.com/ns#>
+            SELECT ?this
+            WHERE {
+                ?this ex:isLocatedInINV ?isLocatedInINV .
+                ?other ex:isLocatedInINV ?isLocatedInINV ;  .
+                FILTER (?this != ?other)
+            }
+        """ ;
+    ] ;
+    sh:severity sh:Violation .

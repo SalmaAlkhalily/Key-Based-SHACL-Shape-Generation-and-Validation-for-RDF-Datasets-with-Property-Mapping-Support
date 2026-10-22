@@ -1,0 +1,884 @@
+PREFIX ex:  <http://example.com/ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX sh:  <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+ex:Shape20  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:isconnectedtoinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wasdestroyedondate
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same wasdestroyedondate and isconnectedtoinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate wasdestroyedondate and isconnectedtoinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape33  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wascreatedondate
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wasdestroyedondate
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslatitude
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same haslatitude and wasdestroyedondate and wascreatedondate must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate haslatitude and wasdestroyedondate and wascreatedondate detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape6  a            sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslength
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wasdestroyedondate
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same wasdestroyedondate and haslength must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n?this ex:haslength ?value ;\n?other ex:haslength ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate wasdestroyedondate and haslength detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n?this ex:haslength ?value ;\n?other ex:haslength ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape1  a            sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslength
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:hasheight
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslatitude
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same haslatitude and hasheight and haslength must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:haslength ?value ;\n?other ex:haslength ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate haslatitude and hasheight and haslength detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:haslength ?value ;\n?other ex:haslength ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape16  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:hasheight
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wasdestroyedondate
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same wasdestroyedondate and hasheight must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate wasdestroyedondate and hasheight detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape29  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:isconnectedtoinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslongitude
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same haslongitude and isconnectedtoinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslongitude ?value ;\n?other ex:haslongitude ?value ;\n?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate haslongitude and isconnectedtoinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslongitude ?value ;\n?other ex:haslongitude ?value ;\n?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape11  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:ownsinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wascreatedondate
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:createdinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslatitude
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same haslatitude and createdinv and wascreatedondate and ownsinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate haslatitude and createdinv and wascreatedondate and ownsinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape24  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wascreatedondate
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wasdestroyedondate
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:islocatedin
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same islocatedin and wasdestroyedondate and wascreatedondate must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate islocatedin and wasdestroyedondate and wascreatedondate detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape37  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:createdinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wasdestroyedondate
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same wasdestroyedondate and createdinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate wasdestroyedondate and createdinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape32  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wascreatedondate
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:isconnectedtoinv
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same isconnectedtoinv and wascreatedondate must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate isconnectedtoinv and wascreatedondate detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape5  a            sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:ownsinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wascreatedondate
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:createdinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslongitude
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same haslongitude and createdinv and wascreatedondate and ownsinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslongitude ?value ;\n?other ex:haslongitude ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate haslongitude and createdinv and wascreatedondate and ownsinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslongitude ?value ;\n?other ex:haslongitude ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape40  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:ownsinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:isconnectedtoinv
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same isconnectedtoinv and ownsinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate isconnectedtoinv and ownsinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape15  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:ownsinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:createdinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslatitude
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:islocatedin
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same islocatedin and haslatitude and createdinv and ownsinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate islocatedin and haslatitude and createdinv and ownsinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape28  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:ownsinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wascreatedondate
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:islocatedin
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same islocatedin and wascreatedondate and ownsinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate islocatedin and wascreatedondate and ownsinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape10  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:ownsinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wascreatedondate
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:hasheight
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same hasheight and wascreatedondate and ownsinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate hasheight and wascreatedondate and ownsinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape23  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:createdinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:hasheight
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslatitude
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:islocatedin
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same islocatedin and haslatitude and hasheight and createdinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate islocatedin and haslatitude and hasheight and createdinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape36  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:createdinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:hasheight
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslongitude
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:islocatedin
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same islocatedin and haslongitude and hasheight and createdinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:haslongitude ?value ;\n?other ex:haslongitude ?value ;\n?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate islocatedin and haslongitude and hasheight and createdinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:haslongitude ?value ;\n?other ex:haslongitude ?value ;\n?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape9  a            sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:hasduration
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same hasduration must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:hasduration ?value ;\n?other ex:hasduration ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate hasduration detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:hasduration ?value ;\n?other ex:hasduration ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape31  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:ownsinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:createdinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslongitude
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:islocatedin
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same islocatedin and haslongitude and createdinv and ownsinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:haslongitude ?value ;\n?other ex:haslongitude ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate islocatedin and haslongitude and createdinv and ownsinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:haslongitude ?value ;\n?other ex:haslongitude ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape4  a            sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:createdinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslength
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:hasheight
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same hasheight and haslength and createdinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:haslength ?value ;\n?other ex:haslength ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate hasheight and haslength and createdinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:haslength ?value ;\n?other ex:haslength ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape19  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:isconnectedtoinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslength
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same haslength and isconnectedtoinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslength ?value ;\n?other ex:haslength ?value ;\n?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate haslength and isconnectedtoinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslength ?value ;\n?other ex:haslength ?value ;\n?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape14  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:isconnectedtoinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslatitude
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same haslatitude and isconnectedtoinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate haslatitude and isconnectedtoinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape27  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wascreatedondate
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:createdinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:hasheight
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:islocatedin
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same islocatedin and hasheight and createdinv and wascreatedondate must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate islocatedin and hasheight and createdinv and wascreatedondate detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape22  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:ownsinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslength
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same haslength and ownsinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslength ?value ;\n?other ex:haslength ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate haslength and ownsinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslength ?value ;\n?other ex:haslength ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape35  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:isconnectedtoinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:hasheight
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same hasheight and isconnectedtoinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate hasheight and isconnectedtoinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape8  a            sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslength
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslongitude
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same haslongitude and haslength must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslongitude ?value ;\n?other ex:haslongitude ?value ;\n?this ex:haslength ?value ;\n?other ex:haslength ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate haslongitude and haslength detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslongitude ?value ;\n?other ex:haslongitude ?value ;\n?this ex:haslength ?value ;\n?other ex:haslength ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape30  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:participatedininv
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same participatedininv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:participatedininv ?value ;\n?other ex:participatedininv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate participatedininv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:participatedininv ?value ;\n?other ex:participatedininv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape3  a            sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslongitude
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wasdestroyedondate
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same wasdestroyedondate and haslongitude must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n?this ex:haslongitude ?value ;\n?other ex:haslongitude ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate wasdestroyedondate and haslongitude detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n?this ex:haslongitude ?value ;\n?other ex:haslongitude ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape18  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haspages
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same haspages must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haspages ?value ;\n?other ex:haspages ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate haspages detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haspages ?value ;\n?other ex:haspages ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape13  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:ownsinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:hasheight
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslongitude
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:islocatedin
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same islocatedin and haslongitude and hasheight and ownsinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:haslongitude ?value ;\n?other ex:haslongitude ?value ;\n?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate islocatedin and haslongitude and hasheight and ownsinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:haslongitude ?value ;\n?other ex:haslongitude ?value ;\n?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape26  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:isconnectedtoinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:islocatedin
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same islocatedin and isconnectedtoinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate islocatedin and isconnectedtoinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape39  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wasdestroyedondate
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslatitude
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:islocatedin
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same islocatedin and haslatitude and wasdestroyedondate must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate islocatedin and haslatitude and wasdestroyedondate detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape21  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:ownsinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wasdestroyedondate
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same wasdestroyedondate and ownsinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate wasdestroyedondate and ownsinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?value ;\n?other ex:wasdestroyedondate ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape34  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:ownsinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:hasheight
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslatitude
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:islocatedin
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same islocatedin and haslatitude and hasheight and ownsinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate islocatedin and haslatitude and hasheight and ownsinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?value ;\n?other ex:islocatedin ?value ;\n?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:hasheight ?value ;\n?other ex:hasheight ?value ;\n?this ex:ownsinv ?value ;\n?other ex:ownsinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape7  a            sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:isconnectedto
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same isconnectedto must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:isconnectedto ?value ;\n?other ex:isconnectedto ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate isconnectedto detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:isconnectedto ?value ;\n?other ex:isconnectedto ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape2  a            sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:islocatedininv
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same islocatedininv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedininv ?value ;\n?other ex:islocatedininv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate islocatedininv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedininv ?value ;\n?other ex:islocatedininv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape17  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:isconnectedtoinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:createdinv
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same createdinv and isconnectedtoinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate createdinv and isconnectedtoinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n?this ex:isconnectedtoinv ?value ;\n?other ex:isconnectedtoinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape12  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:wascreatedondate
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslength
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same haslength and wascreatedondate must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslength ?value ;\n?other ex:haslength ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate haslength and wascreatedondate detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslength ?value ;\n?other ex:haslength ?value ;\n?this ex:wascreatedondate ?value ;\n?other ex:wascreatedondate ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape25  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:createdinv
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslength
+                        ];
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:haslatitude
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same haslatitude and haslength and createdinv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:haslength ?value ;\n?other ex:haslength ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate haslatitude and haslength and createdinv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslatitude ?value ;\n?other ex:haslatitude ?value ;\n?this ex:haslength ?value ;\n?other ex:haslength ?value ;\n?this ex:createdinv ?value ;\n?other ex:createdinv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .
+
+ex:Shape38  a           sh:NodeShape;
+        sh:property     [ sh:datatype  xsd:string;
+                          sh:maxCount  "1"^^xsd:int;
+                          sh:path      ex:happenedininv
+                        ];
+        sh:severity     sh:Violation;
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Persons with the same happenedininv must be declared as owl:sameAs.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    PREFIX owl: <http://www.w3.org/2002/07/owl#>\n    SELECT ?this\n    WHERE {\n        ?this ex:happenedininv ?value ;\n?other ex:happenedininv ?value ;\n\n        FILTER (?this != ?other)\n        FILTER NOT EXISTS {\n            ?this owl:sameAs ?other .\n        }\n    }\n"
+                        ];
+        sh:sparql       [ a           sh:SPARQLConstraint;
+                          sh:message  "Duplicate happenedininv detected within Person class.";
+                          sh:select   "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:happenedininv ?value ;\n?other ex:happenedininv ?value ;\n\n        FILTER (?this != ?other)\n    }\n"
+                        ];
+        sh:targetClass  ex:Person .

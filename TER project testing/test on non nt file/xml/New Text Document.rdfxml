@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:ex="http://example.org/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+  <rdf:Description rdf:about="http://example.org/book1">
+    <rdf:type rdf:resource="http://example.org/Book"/>
+    <ex:title>The Great Gatsby</ex:title>
+    <ex:author>F. Scott Fitzgerald</ex:author>
+    <ex:publicationYear>1925</ex:publicationYear>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://example.org/book2">
+    <rdf:type rdf:resource="http://example.org/Book"/>
+    <ex:title>1984</ex:title>
+    <ex:author>George Orwell</ex:author>
+    <ex:publicationYear>1949</ex:publicationYear>
+  </rdf:Description>
+
+</rdf:RDF>

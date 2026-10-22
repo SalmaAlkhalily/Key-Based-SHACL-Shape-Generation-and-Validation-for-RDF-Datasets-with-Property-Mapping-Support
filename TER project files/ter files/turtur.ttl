@@ -1,0 +1,29 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix ex: <http://example.com/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+ex:Shape1
+    a sh:NodeShape ;
+    sh:targetClass ex:TargetClass ;
+
+    sh:property [
+        sh:path ex:haslat ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:sparql [
+        a sh:SPARQLConstraint ;
+        sh:message "Duplicate detected for properties: haslat" ;
+        sh:select """
+            PREFIX ex: <http://example.com/ns#>
+            SELECT ?this
+            WHERE {
+                ?this ex:haslat ?haslat .
+                ?other ex:haslat ?haslat ;  .
+                FILTER (?this != ?other)
+            }
+        """ ;
+    ] .
+

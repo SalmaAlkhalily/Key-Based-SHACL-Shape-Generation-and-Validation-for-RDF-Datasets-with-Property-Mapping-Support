@@ -1,0 +1,23 @@
+# Maven and build output
+**/target/
+**/build/
+**/javafx-sdk-*/
+
+# IDE metadata
+**/.idea/
+**/*.iml
+**/*.iws
+**/*.ipr
+**/.classpath
+**/.project
+**/.settings/
+
+# Editor and operating-system metadata
+.vscode/
+**/.vscode/
+.DS_Store
+Thumbs.db
+
+# Java and tool-generated files
+*.class
+*.log

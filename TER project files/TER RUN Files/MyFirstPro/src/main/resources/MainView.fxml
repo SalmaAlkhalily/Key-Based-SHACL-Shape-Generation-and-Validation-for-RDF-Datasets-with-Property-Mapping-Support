@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Label?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.myfirstpro.MainController" spacing="10"
+      style="-fx-padding: 20; -fx-background-color: #f4f4f4; -fx-font-family: 'Arial';">
+    <Label text="RDF and SHACL Tool" style="-fx-font-size: 24px; -fx-text-fill: #333;" alignment="CENTER"/>
+    <Separator/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <ToggleButton text="Without Equivalent" fx:id="withoutEquivBtn" styleClass="toggle-btn"/>
+        <ToggleButton text="With Equivalent" fx:id="withEquivBtn" styleClass="toggle-btn"/>
+    </HBox>
+
+    <TabPane tabClosingPolicy="UNAVAILABLE"
+             style="-fx-background-color: #ffffff; -fx-border-color: #ddd;">
+        <Tab text="Generate Keys For RDF File">
+            <fx:include source="/Tab1View.fxml"/>
+        </Tab>
+        <Tab text="Generate SHACL Shapes For Keys">
+            <fx:include source="/Tab2View.fxml"/>
+        </Tab>
+        <Tab text="Validate RDF Data Against SHACL Shapes">
+            <fx:include source="/Tab3View.fxml"/>
+        </Tab>
+    </TabPane>
+</VBox>

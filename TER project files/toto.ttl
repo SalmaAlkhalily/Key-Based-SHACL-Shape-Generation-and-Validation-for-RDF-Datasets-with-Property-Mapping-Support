@@ -1,0 +1,25 @@
+PREFIX ex:  <http://example.com/ns#>
+PREFIX sh:  <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+ex:Shape1  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslength
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:hasheight
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      ex:haslatitude
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: haslatitude, hasheight, haslength";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n?this ex:haslatitude ?haslatitude;\n?this ex:hasheight ?hasheight;\n?this ex:haslength ?haslength;\n?other ex:haslatitude ?haslatitude;\n?other ex:hasheight ?hasheight;\n?other ex:haslength ?haslength;\nFILTER (?this != ?other)\n}"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n?this ex:haslatitude ?haslatitude;\n?this ex:hasheight ?hasheight;\n?this ex:haslength ?haslength;\n?other ex:haslatitude ?haslatitude;\n?other ex:hasheight ?hasheight;\n?other ex:haslength ?haslength;\nFILTER (?this != ?other)\n}"
+                     ] .

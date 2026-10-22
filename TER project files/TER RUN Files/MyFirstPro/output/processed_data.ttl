@@ -1,0 +1,5 @@
+<http://example.com/ns#Kumamoto_Prefectural_Theater> <http://example.com/ns#located> "Kumamoto_Prefecture " .
+<http://example.com/ns#Eccleston_Paddocks> <http://example.com/ns#latitude> "Eccleston,_Cheshire " .
+<http://example.com/ns#Torres_de_Hercules> <http://example.com/ns#length> "Los_Barrios " .
+<http://example.com/ns#Mad_Cow_Theatre> <http://example.com/ns#height> "Orlando,_Florida " .
+<http://example.com/ns#Kumamoto_Prefectural> <http://example.com/ns#located> "Kumamoto_Prefecture " .

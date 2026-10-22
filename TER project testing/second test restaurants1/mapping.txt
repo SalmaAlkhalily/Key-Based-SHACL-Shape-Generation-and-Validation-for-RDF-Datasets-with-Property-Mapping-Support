@@ -1,0 +1,3 @@
+name equivalent resto_name .
+phone_number equivalent resto_phone_num .
+has_address equivalent is_in_address .

@@ -1,0 +1,843 @@
+PREFIX ex:  <http://example.com/ns#>
+PREFIX sh:  <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+ex:Shape20  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: wasdestroyedondate, isconnectedtoinv";
+                               sh:resultPath  ex:wasdestroyedondate;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .?this ex:isconnectedtoinv ?isconnectedtoinv .\n        ?other ex:wasdestroyedondate ?wasdestroyedondate ; ex:isconnectedtoinv ?isconnectedtoinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:isconnectedtoinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wasdestroyedondate
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:wasdestroyedondate ?value .\n    }\n"
+                             ] .
+
+ex:Shape33  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: haslatitude, wasdestroyedondate, wascreatedondate";
+                               sh:resultPath  ex:haslatitude;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslatitude ?haslatitude .?this ex:wasdestroyedondate ?wasdestroyedondate .?this ex:wascreatedondate ?wascreatedondate .\n        ?other ex:haslatitude ?haslatitude ; ex:wasdestroyedondate ?wasdestroyedondate ; ex:wascreatedondate ?wascreatedondate ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wascreatedondate
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wasdestroyedondate
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslatitude
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:haslatitude ?value .\n    }\n"
+                             ] .
+
+ex:Shape6  a                 sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: wasdestroyedondate, haslength";
+                               sh:resultPath  ex:wasdestroyedondate;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .?this ex:haslength ?haslength .\n        ?other ex:wasdestroyedondate ?wasdestroyedondate ; ex:haslength ?haslength ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslength
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wasdestroyedondate
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:wasdestroyedondate ?value .\n    }\n"
+                             ] .
+
+ex:Shape1  a                 sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: haslatitude, hasheight, haslength";
+                               sh:resultPath  ex:haslatitude;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslatitude ?haslatitude .?this ex:hasheight ?hasheight .?this ex:haslength ?haslength .\n        ?other ex:haslatitude ?haslatitude ; ex:hasheight ?hasheight ; ex:haslength ?haslength ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslength
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:hasheight
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslatitude
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:haslatitude ?value .\n    }\n"
+                             ] .
+
+ex:Shape16  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: wasdestroyedondate, hasheight";
+                               sh:resultPath  ex:wasdestroyedondate;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .?this ex:hasheight ?hasheight .\n        ?other ex:wasdestroyedondate ?wasdestroyedondate ; ex:hasheight ?hasheight ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:hasheight
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wasdestroyedondate
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:wasdestroyedondate ?value .\n    }\n"
+                             ] .
+
+ex:Shape29  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: haslongitude, isconnectedtoinv";
+                               sh:resultPath  ex:haslongitude;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslongitude ?haslongitude .?this ex:isconnectedtoinv ?isconnectedtoinv .\n        ?other ex:haslongitude ?haslongitude ; ex:isconnectedtoinv ?isconnectedtoinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:isconnectedtoinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslongitude
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:haslongitude ?value .\n    }\n"
+                             ] .
+
+ex:Shape11  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: haslatitude, createdinv, wascreatedondate, ownsinv";
+                               sh:resultPath  ex:haslatitude;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslatitude ?haslatitude .?this ex:createdinv ?createdinv .?this ex:wascreatedondate ?wascreatedondate .?this ex:ownsinv ?ownsinv .\n        ?other ex:haslatitude ?haslatitude ; ex:createdinv ?createdinv ; ex:wascreatedondate ?wascreatedondate ; ex:ownsinv ?ownsinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:ownsinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wascreatedondate
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:createdinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslatitude
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:haslatitude ?value .\n    }\n"
+                             ] .
+
+ex:Shape24  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: islocatedin, wasdestroyedondate, wascreatedondate";
+                               sh:resultPath  ex:islocatedin;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?islocatedin .?this ex:wasdestroyedondate ?wasdestroyedondate .?this ex:wascreatedondate ?wascreatedondate .\n        ?other ex:islocatedin ?islocatedin ; ex:wasdestroyedondate ?wasdestroyedondate ; ex:wascreatedondate ?wascreatedondate ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wascreatedondate
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wasdestroyedondate
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:islocatedin
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:islocatedin ?value .\n    }\n"
+                             ] .
+
+ex:Shape37  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: wasdestroyedondate, createdinv";
+                               sh:resultPath  ex:wasdestroyedondate;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .?this ex:createdinv ?createdinv .\n        ?other ex:wasdestroyedondate ?wasdestroyedondate ; ex:createdinv ?createdinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:createdinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wasdestroyedondate
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:wasdestroyedondate ?value .\n    }\n"
+                             ] .
+
+ex:Shape32  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: isconnectedtoinv, wascreatedondate";
+                               sh:resultPath  ex:isconnectedtoinv;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:isconnectedtoinv ?isconnectedtoinv .?this ex:wascreatedondate ?wascreatedondate .\n        ?other ex:isconnectedtoinv ?isconnectedtoinv ; ex:wascreatedondate ?wascreatedondate ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wascreatedondate
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:isconnectedtoinv
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:isconnectedtoinv ?value .\n    }\n"
+                             ] .
+
+ex:Shape5  a                 sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: haslongitude, createdinv, wascreatedondate, ownsinv";
+                               sh:resultPath  ex:haslongitude;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslongitude ?haslongitude .?this ex:createdinv ?createdinv .?this ex:wascreatedondate ?wascreatedondate .?this ex:ownsinv ?ownsinv .\n        ?other ex:haslongitude ?haslongitude ; ex:createdinv ?createdinv ; ex:wascreatedondate ?wascreatedondate ; ex:ownsinv ?ownsinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:ownsinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wascreatedondate
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:createdinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslongitude
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:haslongitude ?value .\n    }\n"
+                             ] .
+
+ex:Shape40  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: isconnectedtoinv, ownsinv";
+                               sh:resultPath  ex:isconnectedtoinv;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:isconnectedtoinv ?isconnectedtoinv .?this ex:ownsinv ?ownsinv .\n        ?other ex:isconnectedtoinv ?isconnectedtoinv ; ex:ownsinv ?ownsinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:ownsinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:isconnectedtoinv
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:isconnectedtoinv ?value .\n    }\n"
+                             ] .
+
+ex:Shape15  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: islocatedin, haslatitude, createdinv, ownsinv";
+                               sh:resultPath  ex:islocatedin;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?islocatedin .?this ex:haslatitude ?haslatitude .?this ex:createdinv ?createdinv .?this ex:ownsinv ?ownsinv .\n        ?other ex:islocatedin ?islocatedin ; ex:haslatitude ?haslatitude ; ex:createdinv ?createdinv ; ex:ownsinv ?ownsinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:ownsinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:createdinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslatitude
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:islocatedin
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:islocatedin ?value .\n    }\n"
+                             ] .
+
+ex:Shape28  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: islocatedin, wascreatedondate, ownsinv";
+                               sh:resultPath  ex:islocatedin;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?islocatedin .?this ex:wascreatedondate ?wascreatedondate .?this ex:ownsinv ?ownsinv .\n        ?other ex:islocatedin ?islocatedin ; ex:wascreatedondate ?wascreatedondate ; ex:ownsinv ?ownsinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:ownsinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wascreatedondate
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:islocatedin
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:islocatedin ?value .\n    }\n"
+                             ] .
+
+ex:Shape10  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: hasheight, wascreatedondate, ownsinv";
+                               sh:resultPath  ex:hasheight;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:hasheight ?hasheight .?this ex:wascreatedondate ?wascreatedondate .?this ex:ownsinv ?ownsinv .\n        ?other ex:hasheight ?hasheight ; ex:wascreatedondate ?wascreatedondate ; ex:ownsinv ?ownsinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:ownsinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wascreatedondate
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:hasheight
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:hasheight ?value .\n    }\n"
+                             ] .
+
+ex:Shape23  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: islocatedin, haslatitude, hasheight, createdinv";
+                               sh:resultPath  ex:islocatedin;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?islocatedin .?this ex:haslatitude ?haslatitude .?this ex:hasheight ?hasheight .?this ex:createdinv ?createdinv .\n        ?other ex:islocatedin ?islocatedin ; ex:haslatitude ?haslatitude ; ex:hasheight ?hasheight ; ex:createdinv ?createdinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:createdinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:hasheight
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslatitude
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:islocatedin
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:islocatedin ?value .\n    }\n"
+                             ] .
+
+ex:Shape36  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: islocatedin, haslongitude, hasheight, createdinv";
+                               sh:resultPath  ex:islocatedin;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?islocatedin .?this ex:haslongitude ?haslongitude .?this ex:hasheight ?hasheight .?this ex:createdinv ?createdinv .\n        ?other ex:islocatedin ?islocatedin ; ex:haslongitude ?haslongitude ; ex:hasheight ?hasheight ; ex:createdinv ?createdinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:createdinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:hasheight
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslongitude
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:islocatedin
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:islocatedin ?value .\n    }\n"
+                             ] .
+
+ex:Shape9  a                 sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: hasduration";
+                               sh:resultPath  ex:hasduration;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:hasduration ?hasduration .\n        ?other ex:hasduration ?hasduration ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:hasduration
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:hasduration ?value .\n    }\n"
+                             ] .
+
+ex:Shape31  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: islocatedin, haslongitude, createdinv, ownsinv";
+                               sh:resultPath  ex:islocatedin;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?islocatedin .?this ex:haslongitude ?haslongitude .?this ex:createdinv ?createdinv .?this ex:ownsinv ?ownsinv .\n        ?other ex:islocatedin ?islocatedin ; ex:haslongitude ?haslongitude ; ex:createdinv ?createdinv ; ex:ownsinv ?ownsinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:ownsinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:createdinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslongitude
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:islocatedin
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:islocatedin ?value .\n    }\n"
+                             ] .
+
+ex:Shape4  a                 sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: hasheight, haslength, createdinv";
+                               sh:resultPath  ex:hasheight;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:hasheight ?hasheight .?this ex:haslength ?haslength .?this ex:createdinv ?createdinv .\n        ?other ex:hasheight ?hasheight ; ex:haslength ?haslength ; ex:createdinv ?createdinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:createdinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslength
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:hasheight
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:hasheight ?value .\n    }\n"
+                             ] .
+
+ex:Shape19  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: haslength, isconnectedtoinv";
+                               sh:resultPath  ex:haslength;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslength ?haslength .?this ex:isconnectedtoinv ?isconnectedtoinv .\n        ?other ex:haslength ?haslength ; ex:isconnectedtoinv ?isconnectedtoinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:isconnectedtoinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslength
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:haslength ?value .\n    }\n"
+                             ] .
+
+ex:Shape14  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: haslatitude, isconnectedtoinv";
+                               sh:resultPath  ex:haslatitude;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslatitude ?haslatitude .?this ex:isconnectedtoinv ?isconnectedtoinv .\n        ?other ex:haslatitude ?haslatitude ; ex:isconnectedtoinv ?isconnectedtoinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:isconnectedtoinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslatitude
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:haslatitude ?value .\n    }\n"
+                             ] .
+
+ex:Shape27  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: islocatedin, hasheight, createdinv, wascreatedondate";
+                               sh:resultPath  ex:islocatedin;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?islocatedin .?this ex:hasheight ?hasheight .?this ex:createdinv ?createdinv .?this ex:wascreatedondate ?wascreatedondate .\n        ?other ex:islocatedin ?islocatedin ; ex:hasheight ?hasheight ; ex:createdinv ?createdinv ; ex:wascreatedondate ?wascreatedondate ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wascreatedondate
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:createdinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:hasheight
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:islocatedin
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:islocatedin ?value .\n    }\n"
+                             ] .
+
+ex:Shape22  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: haslength, ownsinv";
+                               sh:resultPath  ex:haslength;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslength ?haslength .?this ex:ownsinv ?ownsinv .\n        ?other ex:haslength ?haslength ; ex:ownsinv ?ownsinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:ownsinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslength
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:haslength ?value .\n    }\n"
+                             ] .
+
+ex:Shape35  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: hasheight, isconnectedtoinv";
+                               sh:resultPath  ex:hasheight;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:hasheight ?hasheight .?this ex:isconnectedtoinv ?isconnectedtoinv .\n        ?other ex:hasheight ?hasheight ; ex:isconnectedtoinv ?isconnectedtoinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:isconnectedtoinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:hasheight
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:hasheight ?value .\n    }\n"
+                             ] .
+
+ex:Shape8  a                 sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: haslongitude, haslength";
+                               sh:resultPath  ex:haslongitude;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslongitude ?haslongitude .?this ex:haslength ?haslength .\n        ?other ex:haslongitude ?haslongitude ; ex:haslength ?haslength ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslength
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslongitude
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:haslongitude ?value .\n    }\n"
+                             ] .
+
+ex:Shape30  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: participatedininv";
+                               sh:resultPath  ex:participatedininv;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:participatedininv ?participatedininv .\n        ?other ex:participatedininv ?participatedininv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:participatedininv
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:participatedininv ?value .\n    }\n"
+                             ] .
+
+ex:Shape3  a                 sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: wasdestroyedondate, haslongitude";
+                               sh:resultPath  ex:wasdestroyedondate;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .?this ex:haslongitude ?haslongitude .\n        ?other ex:wasdestroyedondate ?wasdestroyedondate ; ex:haslongitude ?haslongitude ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslongitude
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wasdestroyedondate
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:wasdestroyedondate ?value .\n    }\n"
+                             ] .
+
+ex:Shape18  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: haspages";
+                               sh:resultPath  ex:haspages;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haspages ?haspages .\n        ?other ex:haspages ?haspages ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haspages
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:haspages ?value .\n    }\n"
+                             ] .
+
+ex:Shape13  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: islocatedin, haslongitude, hasheight, ownsinv";
+                               sh:resultPath  ex:islocatedin;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?islocatedin .?this ex:haslongitude ?haslongitude .?this ex:hasheight ?hasheight .?this ex:ownsinv ?ownsinv .\n        ?other ex:islocatedin ?islocatedin ; ex:haslongitude ?haslongitude ; ex:hasheight ?hasheight ; ex:ownsinv ?ownsinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:ownsinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:hasheight
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslongitude
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:islocatedin
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:islocatedin ?value .\n    }\n"
+                             ] .
+
+ex:Shape26  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: islocatedin, isconnectedtoinv";
+                               sh:resultPath  ex:islocatedin;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?islocatedin .?this ex:isconnectedtoinv ?isconnectedtoinv .\n        ?other ex:islocatedin ?islocatedin ; ex:isconnectedtoinv ?isconnectedtoinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:isconnectedtoinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:islocatedin
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:islocatedin ?value .\n    }\n"
+                             ] .
+
+ex:Shape39  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: islocatedin, haslatitude, wasdestroyedondate";
+                               sh:resultPath  ex:islocatedin;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?islocatedin .?this ex:haslatitude ?haslatitude .?this ex:wasdestroyedondate ?wasdestroyedondate .\n        ?other ex:islocatedin ?islocatedin ; ex:haslatitude ?haslatitude ; ex:wasdestroyedondate ?wasdestroyedondate ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wasdestroyedondate
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslatitude
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:islocatedin
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:islocatedin ?value .\n    }\n"
+                             ] .
+
+ex:Shape21  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: wasdestroyedondate, ownsinv";
+                               sh:resultPath  ex:wasdestroyedondate;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:wasdestroyedondate ?wasdestroyedondate .?this ex:ownsinv ?ownsinv .\n        ?other ex:wasdestroyedondate ?wasdestroyedondate ; ex:ownsinv ?ownsinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:ownsinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wasdestroyedondate
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:wasdestroyedondate ?value .\n    }\n"
+                             ] .
+
+ex:Shape34  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: islocatedin, haslatitude, hasheight, ownsinv";
+                               sh:resultPath  ex:islocatedin;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:islocatedin ?islocatedin .?this ex:haslatitude ?haslatitude .?this ex:hasheight ?hasheight .?this ex:ownsinv ?ownsinv .\n        ?other ex:islocatedin ?islocatedin ; ex:haslatitude ?haslatitude ; ex:hasheight ?hasheight ; ex:ownsinv ?ownsinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:ownsinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:hasheight
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslatitude
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:islocatedin
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:islocatedin ?value .\n    }\n"
+                             ] .
+
+ex:Shape7  a                 sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: isconnectedto";
+                               sh:resultPath  ex:isconnectedto;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:isconnectedto ?isconnectedto .\n        ?other ex:isconnectedto ?isconnectedto ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:isconnectedto
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:isconnectedto ?value .\n    }\n"
+                             ] .
+
+ex:Shape2  a                 sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: isLocatedInINV";
+                               sh:resultPath  ex:isLocatedInINV;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:isLocatedInINV ?isLocatedInINV .\n        ?other ex:isLocatedInINV ?isLocatedInINV ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:isLocatedInINV
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:isLocatedInINV ?value .\n    }\n"
+                             ] .
+
+ex:Shape17  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: createdinv, isconnectedtoinv";
+                               sh:resultPath  ex:createdinv;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:createdinv ?createdinv .?this ex:isconnectedtoinv ?isconnectedtoinv .\n        ?other ex:createdinv ?createdinv ; ex:isconnectedtoinv ?isconnectedtoinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:isconnectedtoinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:createdinv
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:createdinv ?value .\n    }\n"
+                             ] .
+
+ex:Shape12  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: haslength, wascreatedondate";
+                               sh:resultPath  ex:haslength;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslength ?haslength .?this ex:wascreatedondate ?wascreatedondate .\n        ?other ex:haslength ?haslength ; ex:wascreatedondate ?wascreatedondate ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:wascreatedondate
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslength
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:haslength ?value .\n    }\n"
+                             ] .
+
+ex:Shape25  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: haslatitude, haslength, createdinv";
+                               sh:resultPath  ex:haslatitude;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:haslatitude ?haslatitude .?this ex:haslength ?haslength .?this ex:createdinv ?createdinv .\n        ?other ex:haslatitude ?haslatitude ; ex:haslength ?haslength ; ex:createdinv ?createdinv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:createdinv
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslength
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:haslatitude
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:haslatitude ?value .\n    }\n"
+                             ] .
+
+ex:Shape38  a                sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: happenedininv";
+                               sh:resultPath  ex:happenedininv;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:happenedininv ?happenedininv .\n        ?other ex:happenedininv ?happenedininv ;  .\n        FILTER (?this != ?other)\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:happenedininv
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:happenedininv ?value .\n    }\n"
+                             ] .

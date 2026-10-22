@@ -1,0 +1,113 @@
+PREFIX ex:  <http://example.com/ns#>
+PREFIX sh:  <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+ex:Shape2  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:minCount  "1"^^xsd:int;
+                       sh:path      ex:creator
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+CONSTRUCT {
+    ?this owl:sameAs ?other .
+}
+WHERE {
+    ?this ex:creator ?creator .
+    ?other ex:creator ?creator .
+    FILTER (?this != ?other)
+}
+"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: creator";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>
+SELECT ?this
+WHERE {
+    ?this ex:creator ?creator .
+    ?other ex:creator ?creator .
+    FILTER (?this != ?other)
+}
+"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties: (creator) must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT ?this ?other
+WHERE {
+    ?this ex:creator ?creator .
+    ?other ex:creator ?creator .
+    FILTER (?this != ?other)
+    FILTER NOT EXISTS { ?this owl:sameAs ?other }
+}
+"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>
+SELECT ?this
+WHERE {
+    ?this ex:creator ?creator .
+    ?other ex:creator ?creator .
+    FILTER (?this != ?other)
+}
+"
+                     ] .
+
+ex:Shape1  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:minCount  "1"^^xsd:int;
+                       sh:path      ex:title
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+CONSTRUCT {
+    ?this owl:sameAs ?other .
+}
+WHERE {
+    ?this ex:title ?title .
+    ?other ex:title ?title .
+    FILTER (?this != ?other)
+}
+"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: title";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>
+SELECT ?this
+WHERE {
+    ?this ex:title ?title .
+    ?other ex:title ?title .
+    FILTER (?this != ?other)
+}
+"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties: (title) must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT ?this ?other
+WHERE {
+    ?this ex:title ?title .
+    ?other ex:title ?title .
+    FILTER (?this != ?other)
+    FILTER NOT EXISTS { ?this owl:sameAs ?other }
+}
+"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>
+SELECT ?this
+WHERE {
+    ?this ex:title ?title .
+    ?other ex:title ?title .
+    FILTER (?this != ?other)
+}
+"
+                     ] .

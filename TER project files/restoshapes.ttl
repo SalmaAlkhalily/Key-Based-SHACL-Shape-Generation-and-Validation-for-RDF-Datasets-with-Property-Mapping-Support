@@ -1,0 +1,209 @@
+PREFIX ex:  <http://example.com/ns#>
+PREFIX sh:  <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+ex:Shape7  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:minCount  "1"^^xsd:int;
+                       sh:path      ex:street
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:minCount  "1"^^xsd:int;
+                       sh:path      ex:category
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n    ?this ex:category ?category .\n    ?other ex:category ?category .?this ex:street ?street .\n    ?other ex:street ?street .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: category, street";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n    ?this ex:category ?category .\n    ?other ex:category ?category .?this ex:street ?street .\n    ?other ex:street ?street .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties: (category, street) must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n    ?this ex:category ?category .\n    ?other ex:category ?category .?this ex:street ?street .\n    ?other ex:street ?street .\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n    ?this ex:category ?category .\n    ?other ex:category ?category .?this ex:street ?street .\n    ?other ex:street ?street .\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape2  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:minCount  "1"^^xsd:int;
+                       sh:path      ex:phone_number
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:minCount  "1"^^xsd:int;
+                       sh:path      ex:street
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n    ?this ex:street ?street .\n    ?other ex:street ?street .?this ex:phone_number ?phone_number .\n    ?other ex:phone_number ?phone_number .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: street, phone_number";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n    ?this ex:street ?street .\n    ?other ex:street ?street .?this ex:phone_number ?phone_number .\n    ?other ex:phone_number ?phone_number .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties: (street, phone_number) must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n    ?this ex:street ?street .\n    ?other ex:street ?street .?this ex:phone_number ?phone_number .\n    ?other ex:phone_number ?phone_number .\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n    ?this ex:street ?street .\n    ?other ex:street ?street .?this ex:phone_number ?phone_number .\n    ?other ex:phone_number ?phone_number .\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape4  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:minCount  "1"^^xsd:int;
+                       sh:path      ex:is_in_city
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n    ?this ex:is_in_city ?is_in_city .\n    ?other ex:is_in_city ?is_in_city .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: is_in_city";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n    ?this ex:is_in_city ?is_in_city .\n    ?other ex:is_in_city ?is_in_city .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties: (is_in_city) must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n    ?this ex:is_in_city ?is_in_city .\n    ?other ex:is_in_city ?is_in_city .\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n    ?this ex:is_in_city ?is_in_city .\n    ?other ex:is_in_city ?is_in_city .\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape6  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:minCount  "1"^^xsd:int;
+                       sh:path      ex:phone_number
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:minCount  "1"^^xsd:int;
+                       sh:path      ex:category
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n    ?this ex:category ?category .\n    ?other ex:category ?category .?this ex:phone_number ?phone_number .\n    ?other ex:phone_number ?phone_number .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: category, phone_number";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n    ?this ex:category ?category .\n    ?other ex:category ?category .?this ex:phone_number ?phone_number .\n    ?other ex:phone_number ?phone_number .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties: (category, phone_number) must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n    ?this ex:category ?category .\n    ?other ex:category ?category .?this ex:phone_number ?phone_number .\n    ?other ex:phone_number ?phone_number .\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n    ?this ex:category ?category .\n    ?other ex:category ?category .?this ex:phone_number ?phone_number .\n    ?other ex:phone_number ?phone_number .\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape1  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:minCount  "1"^^xsd:int;
+                       sh:path      ex:street
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:minCount  "1"^^xsd:int;
+                       sh:path      ex:name
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n    ?this ex:name ?name .\n    ?other ex:name ?name .?this ex:street ?street .\n    ?other ex:street ?street .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: name, street";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n    ?this ex:name ?name .\n    ?other ex:name ?name .?this ex:street ?street .\n    ?other ex:street ?street .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties: (name, street) must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n    ?this ex:name ?name .\n    ?other ex:name ?name .?this ex:street ?street .\n    ?other ex:street ?street .\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n    ?this ex:name ?name .\n    ?other ex:name ?name .?this ex:street ?street .\n    ?other ex:street ?street .\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape8  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:minCount  "1"^^xsd:int;
+                       sh:path      ex:category
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:minCount  "1"^^xsd:int;
+                       sh:path      ex:name
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n    ?this ex:name ?name .\n    ?other ex:name ?name .?this ex:category ?category .\n    ?other ex:category ?category .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: name, category";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n    ?this ex:name ?name .\n    ?other ex:name ?name .?this ex:category ?category .\n    ?other ex:category ?category .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties: (name, category) must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n    ?this ex:name ?name .\n    ?other ex:name ?name .?this ex:category ?category .\n    ?other ex:category ?category .\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n    ?this ex:name ?name .\n    ?other ex:name ?name .?this ex:category ?category .\n    ?other ex:category ?category .\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape3  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:minCount  "1"^^xsd:int;
+                       sh:path      ex:has_address
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n    ?this ex:has_address ?has_address .\n    ?other ex:has_address ?has_address .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: has_address";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n    ?this ex:has_address ?has_address .\n    ?other ex:has_address ?has_address .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties: (has_address) must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n    ?this ex:has_address ?has_address .\n    ?other ex:has_address ?has_address .\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n    ?this ex:has_address ?has_address .\n    ?other ex:has_address ?has_address .\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+ex:Shape5  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:minCount  "1"^^xsd:int;
+                       sh:path      ex:phone_number
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:minCount  "1"^^xsd:int;
+                       sh:path      ex:name
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n    ?this ex:name ?name .\n    ?other ex:name ?name .?this ex:phone_number ?phone_number .\n    ?other ex:phone_number ?phone_number .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: name, phone_number";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n    ?this ex:name ?name .\n    ?other ex:name ?name .?this ex:phone_number ?phone_number .\n    ?other ex:phone_number ?phone_number .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties: (name, phone_number) must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.com/ns#>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n    ?this ex:name ?name .\n    ?other ex:name ?name .?this ex:phone_number ?phone_number .\n    ?other ex:phone_number ?phone_number .\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.com/ns#>\nSELECT ?this\nWHERE {\n    ?this ex:name ?name .\n    ?other ex:name ?name .?this ex:phone_number ?phone_number .\n    ?other ex:phone_number ?phone_number .\n    FILTER (?this != ?other)\n}\n"
+                     ] .

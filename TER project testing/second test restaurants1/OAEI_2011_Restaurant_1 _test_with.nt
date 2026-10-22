@@ -1,0 +1,7 @@
+<http://www.okkam.org/oaie/restaurant1-Restaurant16> <resto_name> "patina" .
+<http://www.okkam.org/oaie/restaurant1-Restaurant16> <is_in_address> <http://www.okkam.org/oaie/restaurant1-Address16> .
+<http://www.okkam.org/oaie/restaurant1-Restaurant16> <resto_phone_num> "213/467-1108" .
+
+<http://www.okkam.org/oaie/restaurant1-Restaurant26> <resto_name> "patina" .
+<http://www.okkam.org/oaie/restaurant1-Restaurant26> <is_in_address> <http://www.okkam.org/oaie/restaurant1-Address26> .
+<http://www.okkam.org/oaie/restaurant1-Restaurant26> <resto_phone_num> "213/467-1108" .

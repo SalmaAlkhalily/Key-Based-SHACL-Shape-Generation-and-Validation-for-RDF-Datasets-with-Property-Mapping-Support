@@ -1,0 +1,9 @@
+<http://example.org/book1> <http://example.org/title> "The Great Gatsby" <http://example.org/graph> .
+<http://example.org/book1> <http://example.org/author> "F. Scott Fitzgerald" <http://example.org/graph> .
+<http://example.org/book1> <http://example.org/publicationYear> "1925" <http://example.org/graph> .
+<http://example.org/book1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/Book> <http://example.org/graph> .
+
+<http://example.org/book2> <http://example.org/title> "1984" <http://example.org/graph> .
+<http://example.org/book2> <http://example.org/author> "George Orwell" <http://example.org/graph> .
+<http://example.org/book2> <http://example.org/publicationYear> "1949" <http://example.org/graph> .
+<http://example.org/book2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.org/Book> <http://example.org/graph> .

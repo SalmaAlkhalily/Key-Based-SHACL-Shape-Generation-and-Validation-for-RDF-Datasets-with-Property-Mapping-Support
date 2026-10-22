@@ -1,0 +1,1 @@
+0-almost keys:[[haslatitude, hasheight, haslength], [islocatedininv]]

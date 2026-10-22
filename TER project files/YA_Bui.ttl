@@ -1,0 +1,7 @@
+<http://example.com/ns#hhh>
+        <http://example.com/ns#isLocatedInINV>
+                "Ta_Som666" , "Ta_Som" .
+
+<http://example.com/ns#Kaaba>
+        <http://example.com/ns#isLocatedInINV>
+                "Ta_Som" .

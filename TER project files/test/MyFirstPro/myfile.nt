@@ -1,0 +1,14 @@
+<http://example.org/JohnDoe> <creator> <http://example.org/TheGreatGatsby1> .
+<http://example.org/JohnDoe> <title> "John Doe" .
+<http://example.org/JohnDoe> <creator> <http://example.org/TheGreatGatsby> .
+<http://example.org/JohnDoe> <type> <http://example.org/Person> .
+<http://example.org/TheGreatGatsby> <date> "1925" .
+<http://example.org/TheGreatGatsby> <creator> "F. Scott Fitzgerald" .
+<http://example.org/TheGreatGatsby> <title> "The Great Gatsby" .
+<http://example.org/TheGreatGatsby> <type> <http://example.org/Book> .
+<http://example.org/TheGreatGatsby1> <date> "1925" .
+<http://example.org/TheGreatGatsby1> <creator> "F. Scott Fitzgerald1" .
+<http://example.org/TheGreatGatsby1> <title> "The Great Gatsby1" .
+<http://example.org/TheGreatGatsby1> <type> <http://example.org/Book> .
+<http://example.org/JohnDoe2> <creator> <http://example.org/TheGreatGatsby1> .
+<http://example.org/JohnDoe2> <title> "John Doe" .

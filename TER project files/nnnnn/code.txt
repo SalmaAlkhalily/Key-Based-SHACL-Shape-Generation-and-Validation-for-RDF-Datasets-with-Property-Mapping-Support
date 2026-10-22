@@ -1,0 +1,971 @@
+package org.example.myfirstpro;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import org.apache.jena.graph.Graph;
+import org.apache.jena.graph.Node;
+import org.apache.jena.rdf.model.*;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.shacl.ShaclValidator;
+import org.apache.jena.shacl.Shapes;
+import org.apache.jena.shacl.ValidationReport;
+import org.apache.jena.shacl.lib.ShLib;
+import org.apache.jena.sparql.graph.GraphFactory;
+import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.vocabulary.XSD;
+import org.apache.spark.api.java.function.FilterFunction;
+import org.apache.spark.api.java.function.MapFunction;
+import org.apache.spark.sql.*;
+import org.apache.spark.sql.Dataset;
+import org.fxmisc.flowless.VirtualizedScrollPane;
+import org.fxmisc.richtext.InlineCssTextArea;
+import org.topbraid.shacl.validation.ValidationUtil;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+
+public class HelloApplication extends Application {
+    private final InlineCssTextArea rdfContentTextArea = new InlineCssTextArea();
+    private final Button generateKeysButton = new Button("Generate Keys");
+    private final TextArea outputTextArea = new TextArea();
+    private final ProgressIndicator loadingIndicator = new ProgressIndicator();
+    private String selectedFilePath = "";
+    private final InlineCssTextArea shapesTextArea = new InlineCssTextArea();
+    private final Button saveShapesButton = new Button("Save to File");
+    private List<List<String>> almostKeys;
+    private final Button saveKeysButton = new Button("Save Generated Keys");
+    private final Button validateButton = new Button("Validate RDF Data");
+
+    @Override
+    public void start(Stage primaryStage) {
+        TabPane tabPane = new TabPane();
+        tabPane.getTabs().addAll(createLoadRDFTab(), createGenerateShapesTab(), createValidateDataTab(), createEquivalentsTab());
+
+        Scene scene = new Scene(tabPane, 800, 600);
+        primaryStage.setTitle("RDF and SHACL Validator");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private Tab createLoadRDFTab() {
+        Tab loadRDFTab = new Tab("Generate Keys For RDF File");
+        loadRDFTab.setClosable(false);
+        VBox layout = new VBox(10);
+
+        Button chooseRdfButton = new Button("Select RDF NT File");
+        chooseRdfButton.setOnAction(e -> openRdfFileChooser());
+        saveKeysButton.setDisable(true);
+        saveKeysButton.setOnAction(e -> saveGeneratedKeysToFile());
+
+        VirtualizedScrollPane<InlineCssTextArea> virtualizedTextPane = new VirtualizedScrollPane<>(rdfContentTextArea);
+        loadingIndicator.setVisible(false);
+
+        layout.getChildren().addAll(chooseRdfButton,
+                new Label("Selected RDF File: "),
+                virtualizedTextPane,
+                generateKeysButton,
+                outputTextArea,
+                saveKeysButton,
+                loadingIndicator);
+
+        generateKeysButton.setDisable(true);
+        outputTextArea.setEditable(false);
+        loadRDFTab.setContent(layout);
+        generateKeysButton.setOnAction(e -> {
+            generateKeys();
+            saveKeysButton.setDisable(false);
+        });
+
+        return loadRDFTab;
+    }
+
+    private void saveGeneratedKeysToFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Generated Keys");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+
+        File file = fileChooser.showSaveDialog(null);
+
+        if (file != null) {
+            try {
+                Files.write(file.toPath(), outputTextArea.getText().getBytes());
+                showAlert("Success", "Generated keys saved successfully.", Alert.AlertType.INFORMATION);
+            } catch (IOException e) {
+                showAlert("Error", "Failed to save the file.", Alert.AlertType.ERROR);
+            }
+        }
+    }
+
+    private Tab createGenerateShapesTab() {
+        Tab generateShapesTab = new Tab("Generate SHACL Shapes For Keys");
+        generateShapesTab.setClosable(false);
+
+        VBox layout = new VBox(10);
+
+        InlineCssTextArea keysTextArea = new InlineCssTextArea();
+        keysTextArea.setWrapText(true);
+        keysTextArea.setEditable(false);
+        VirtualizedScrollPane<InlineCssTextArea> keysScrollPane = new VirtualizedScrollPane<>(keysTextArea);
+
+        shapesTextArea.setWrapText(true);
+        shapesTextArea.setEditable(false);
+        VirtualizedScrollPane<InlineCssTextArea> shapesScrollPane = new VirtualizedScrollPane<>(shapesTextArea);
+
+        saveShapesButton.setDisable(true);
+        saveShapesButton.setOnAction(e -> saveGeneratedShapesToFile());
+
+        Button chooseKeysFileButton = new Button("Choose Keys File");
+        chooseKeysFileButton.setOnAction(e -> chooseKeysFile(keysTextArea));
+
+        Button generateShapesButton = new Button("Generate SHACL Shapes");
+        generateShapesButton.setOnAction(e -> {
+            if (almostKeys == null || almostKeys.isEmpty()) {
+                showAlert("Error", "No keys available to generate shapes.", Alert.AlertType.ERROR);
+                return;
+            }
+            generateShapes(almostKeys);
+        });
+
+        layout.getChildren().addAll(chooseKeysFileButton, keysScrollPane, generateShapesButton, shapesScrollPane, saveShapesButton);
+        generateShapesTab.setContent(layout);
+
+        return generateShapesTab;
+    }
+
+    private void chooseKeysFile(InlineCssTextArea keysTextArea) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose Keys File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            try {
+                List<String> lines = Files.readAllLines(selectedFile.toPath());
+                almostKeys = lines.stream()
+                        .map(line -> Arrays.asList(line.split(",")))
+                        .collect(Collectors.toList());
+                String keysContent = String.join("\n", lines);
+                javafx.application.Platform.runLater(() -> {
+                    keysTextArea.replaceText(keysContent);
+                    shapesTextArea.clear();
+                    saveShapesButton.setDisable(true);
+                });
+
+            } catch (IOException e) {
+                showAlert("Error", "Failed to read keys file: " + e.getMessage(), Alert.AlertType.ERROR);
+            }
+        }
+    }
+
+    private Tab createValidateDataTab() {
+        Tab validateDataTab = new Tab("Validate RDF Data Against SHACL Shapes");
+        validateDataTab.setClosable(false);
+
+        VBox layout = new VBox(10);
+
+        TextArea dataFileTextArea = new TextArea();
+        dataFileTextArea.setWrapText(true);
+        dataFileTextArea.setEditable(false);
+
+        TextArea shapesFileTextArea = new TextArea();
+        shapesFileTextArea.setWrapText(true);
+        shapesFileTextArea.setEditable(false);
+
+        Button chooseDataFileButton = new Button("Choose Data File");
+        chooseDataFileButton.setOnAction(e -> chooseDataFile(dataFileTextArea));
+
+        Button chooseShapesFileButton = new Button("Choose Shapes File");
+        chooseShapesFileButton.setOnAction(e -> chooseShapesFile(shapesFileTextArea));
+
+        validateButton.setDisable(true);
+        validateButton.setOnAction(e -> validateRdfData());
+
+        layout.getChildren().addAll(
+                chooseDataFileButton,
+                dataFileTextArea,
+                chooseShapesFileButton,
+                shapesFileTextArea,
+                validateButton
+        );
+
+        validateDataTab.setContent(layout);
+        return validateDataTab;
+    }
+
+    private String dataFilePath = null;
+    private String shapesFilePath = null;
+
+    private void chooseDataFile(TextArea dataFileTextArea) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose Data File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("RDF Files", "*.ttl", "*.nt"));
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            dataFilePath = selectedFile.getAbsolutePath();
+            try {
+                String content = Files.readString(selectedFile.toPath());
+                dataFileTextArea.setText(content);
+            } catch (IOException e) {
+                showAlert("Error", "Failed to read data file: " + e.getMessage(), Alert.AlertType.ERROR);
+            }
+            if (dataFilePath != null && shapesFilePath != null) {
+                validateButton.setDisable(false);
+            }
+        }
+    }
+
+    private void chooseShapesFile(TextArea shapesFileTextArea) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose Shapes File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SHACL Files", "*.ttl"));
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            shapesFilePath = selectedFile.getAbsolutePath();
+            try {
+                String content = Files.readString(selectedFile.toPath());
+                shapesFileTextArea.setText(content);
+            } catch (IOException e) {
+                showAlert("Error", "Failed to read shapes file: " + e.getMessage(), Alert.AlertType.ERROR);
+            }
+            if (dataFilePath != null && shapesFilePath != null) {
+                validateButton.setDisable(false);
+            }
+        }
+    }
+
+
+    private File processDataFile(String inputFilePath) {
+        System.setProperty("hadoop.native.io.disabled", "true");
+        SparkSession spark = SparkSession.builder()
+                .appName("RDF Processor")
+                .master("local[*]")
+                .getOrCreate();
+
+        String outputPath = "output/";
+        String prefix = "http://example.com/ns#";
+        Dataset<Row> rdfData = spark.read().text(inputFilePath);
+        Dataset<Row> transformedData = rdfData
+                .filter((FilterFunction<Row>) row -> !row.getString(0).trim().isEmpty())
+                .map((MapFunction<Row, String>) row -> {
+                    String line = row.getString(0).trim();
+                    String[] parts = line.split(" ", 3);
+                    if (parts.length != 3) return "";
+                    String subject = parts[0].replace("<", "").replace(">", "");
+                    String predicate = parts[1].replace("<", "").replace(">", "");
+                    String object = parts[2].replace("<", "").replace(">", "").replace(".", "");
+                    object = object.replace("\"", "");
+                    String transformedSubject = prefix + subject.replace("`", "_");
+                    String transformedPredicate = prefix + predicate.toLowerCase().replace("`", "_");
+                    String transformedObject = "\"" + object.replace("`", "_") + "\"";
+
+                    if (transformedObject.startsWith("\"")
+                            && transformedObject.contains("-")
+                            && transformedObject.contains("##")) {
+                        transformedObject = transformedObject
+                                .replace("\"", "")
+                                .replace("##", "01");
+                        transformedObject = "\"" + transformedObject + "\"";
+                    }
+
+                    return "<" + transformedSubject + "> <" + transformedPredicate + "> " + transformedObject + " .";
+                }, Encoders.STRING()).toDF();
+
+        transformedData.coalesce(1).write().mode(SaveMode.Overwrite).text(outputPath);
+
+        System.out.println("Processing complete. Output written to " + outputPath);
+
+        spark.stop();
+
+        File outputDir = new File(outputPath);
+        File[] files = outputDir.listFiles((dir, name) -> name.startsWith("part-"));
+
+        if (files != null && files.length > 0) {
+            File partFile = files[0];
+            Path targetPath = Paths.get(outputPath + "processed_data.ttl");
+
+            try {
+                Files.move(partFile.toPath(), targetPath);
+                return targetPath.toFile();
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to rename the output file.", e);
+            }
+        } else {
+            throw new RuntimeException("No part files found in the output directory.");
+        }
+    }
+
+
+    private void validateRdfData() {
+        if (dataFilePath == null || shapesFilePath == null) {
+            showAlert("Error", "Please choose both a data file and a shapes file.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        File processedDataFile;
+        processedDataFile = processDataFile(dataFilePath);
+        String DATA = processedDataFile.getAbsolutePath();
+        String SHAPES = shapesFilePath;
+        Graph shapesGraph = GraphFactory.createDefaultGraph();
+        RDFDataMgr.read(shapesGraph, SHAPES);
+
+        System.out.println("Data:" + DATA);
+        Graph dataGraph = GraphFactory.createDefaultGraph();
+        RDFDataMgr.read(dataGraph, DATA);
+
+        Shapes shapes = Shapes.parse(shapesGraph);
+        System.out.println("Shapes: " + shapes.getGraph());
+        ValidationReport report = ShaclValidator.get().validate(shapes.getGraph(), dataGraph);
+        ShLib.printReport(report);
+        System.out.println("Report:" + report.getEntries());
+        RDFDataMgr.write(System.out, report.getModel(), Lang.NT);
+        Map<String, Integer> violationCounts = new HashMap<>();
+        AtomicInteger totalViolations = new AtomicInteger(0);
+        Model reportModel = report.getModel();
+        report.getEntries().forEach(entry -> {
+            Node sourceConstraintNode = entry.sourceConstraintComponent();
+            RDFNode sourceConstraint = reportModel.asRDFNode(sourceConstraintNode);
+            String constraintName = sourceConstraint != null ? sourceConstraint.toString() : "Unknown Constraint";
+            String resultMessage = entry.message();
+            String uniqueConstraintKey = constraintName + " - " + resultMessage;
+            violationCounts.put(uniqueConstraintKey, violationCounts.getOrDefault(uniqueConstraintKey, 0) + 1);
+            totalViolations.incrementAndGet();
+        });
+        if (totalViolations.get() > 0)
+            System.out.println("Violation Counts by Individual Constraint:");
+        violationCounts.forEach((constraint, count) -> {
+            System.out.println("Constraint: " + constraint);
+            System.out.println("Violations: " + count);
+        });
+        System.out.println("Total Number of Violations: " + totalViolations.get());
+
+
+    }
+
+  //  private Tab createEquivalentsTab() {
+//        Tab equivalentsTab = new Tab("Generate SHACL for Equivalents");
+//        equivalentsTab.setClosable(false);
+//        VBox layout = new VBox();
+//        Button generateEquivalentsButton = new Button("Generate SHACL for Equivalents");
+//        generateEquivalentsButton.setOnAction(e -> generateEquivalentsShapes());
+//        layout.getChildren().addAll(generateEquivalentsButton, new TextArea());
+//        equivalentsTab.setContent(layout);
+//        return equivalentsTab;
+    //}
+
+    private TextArea validationResultsTextArea = new TextArea();
+
+    public Tab createEquivalentsTab() {
+        Tab equivalentsTab = new Tab("Generate and Validate SHACL");
+        equivalentsTab.setClosable(false);
+        VBox layout = new VBox();
+        layout.setSpacing(10);
+
+        // UI Components
+        Button selectMappingFileButton = new Button("Select Mapping File");
+        TextArea mappingFileContent = new TextArea();
+        mappingFileContent.setEditable(false);
+        mappingFileContent.setPromptText("Mapping file content will appear here...");
+
+        Button selectKeysFileButton = new Button("Select Keys File");
+        TextArea keysFileContent = new TextArea();
+        keysFileContent.setEditable(false);
+        keysFileContent.setPromptText("Keys file content will appear here...");
+
+        Button selectDataFileButton = new Button("Select Data File");
+        TextArea dataFileContent = new TextArea();
+        dataFileContent.setEditable(false);
+        dataFileContent.setPromptText("Data file content will appear here...");
+
+        Button generateEquivalentsButton = new Button("Generate SHACL for Equivalents");
+        generateEquivalentsButton.setDisable(true);
+        shapesTextArea.setEditable(false);
+
+        Button validateButton = new Button("Validate Data");
+        validateButton.setDisable(true);
+        validationResultsTextArea.setEditable(false);
+        validationResultsTextArea.setPromptText("Validation results will appear here...");
+
+        // Select Mapping File
+        selectMappingFileButton.setOnAction(e -> {
+            File file = chooseFile("Text Files", "*.txt");
+            if (file != null) {
+                loadFileContent(file, mappingFileContent);
+                checkEnableButtons(mappingFileContent, keysFileContent, dataFileContent, generateEquivalentsButton, validateButton);
+            }
+        });
+
+        // Select Keys File
+        selectKeysFileButton.setOnAction(e -> {
+            File file = chooseFile("Text Files", "*.txt");
+            if (file != null) {
+                loadFileContent(file, keysFileContent);
+                checkEnableButtons(mappingFileContent, keysFileContent, dataFileContent, generateEquivalentsButton, validateButton);
+            }
+        });
+
+        // Select Data File
+        selectDataFileButton.setOnAction(e -> {
+            File file = chooseFile("Text Files", "*.nt");
+            if (file != null) {
+                loadFileContent(file, dataFileContent);
+                dataFilePath = file.getAbsolutePath();
+                checkEnableButtons(mappingFileContent, keysFileContent, dataFileContent, generateEquivalentsButton, validateButton);
+            }
+        });
+
+        // Generate SHACL Shapes
+        generateEquivalentsButton.setOnAction(e -> {
+            try {
+                Map<String, String> equivalentsMap = parseMappingFile(mappingFileContent.getText());
+                List<List<String>> almostKeys = parseKeysFile(keysFileContent.getText(), equivalentsMap);
+                generateShapes(almostKeys);
+            } catch (Exception ex) {
+                showAlert("Error", "Failed to generate shapes: " + ex.getMessage(), Alert.AlertType.ERROR);
+            }
+        });
+
+        // Validate Data
+        validateButton.setOnAction(e -> {
+            try {
+                File processedDataFile = processDataFile(dataFilePath); // Change the input path as needed
+                String processedDataContent = Files.readString(processedDataFile.toPath());
+                dataFileContent.setText(processedDataContent);
+
+                Map<String, String> equivalentsMap = parseMappingFile(mappingFileContent.getText());
+                validateAgainstEquivalentData(equivalentsMap, processedDataContent, shapesTextArea.getText());
+            } catch (Exception ex) {
+                showAlert("Error", "Validation failed: " + ex.getMessage(), Alert.AlertType.ERROR);
+            }
+        });
+
+        // Layout
+        layout.getChildren().addAll(
+                selectMappingFileButton, mappingFileContent,
+                selectKeysFileButton, keysFileContent,
+                selectDataFileButton, dataFileContent,
+                generateEquivalentsButton, shapesTextArea,
+                validateButton, validationResultsTextArea
+        );
+
+        equivalentsTab.setContent(layout);
+        return equivalentsTab;
+    }
+
+    private File chooseFile(String description, String extension) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(description, extension));
+        return fileChooser.showOpenDialog(null);
+    }
+
+    private void loadFileContent(File file, TextArea textArea) {
+        try {
+            String content = Files.readString(file.toPath());
+            textArea.setText(content);
+        } catch (IOException ex) {
+            showAlert("Error", "Failed to load file: " + ex.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    private void checkEnableButtons(TextArea mappingContent, TextArea keysContent, TextArea dataContent, Button generateButton, Button validateButton) {
+        boolean mappingAndKeysLoaded = !mappingContent.getText().isBlank() && !keysContent.getText().isBlank();
+        generateButton.setDisable(!mappingAndKeysLoaded);
+        validateButton.setDisable(!mappingAndKeysLoaded || dataContent.getText().isBlank());
+    }
+
+    private Map<String, String> parseMappingFile(String mappingContent) {
+        Map<String, String> equivalentsMap = new HashMap<>();
+        for (String line : mappingContent.split("\\n")) {
+            String[] parts = line.split(" equivalent ");
+            if (parts.length == 2) {
+                String key = parts[0].trim().replace(" ", "_");
+                String value = parts[1].trim().replace(".", "").replace(" ", "_");
+                equivalentsMap.put(key, value);
+            }
+        }
+        return equivalentsMap;
+    }
+
+    private List<List<String>> parseKeysFile(String keysContent, Map<String, String> equivalentsMap) {
+        List<List<String>> almostKeys = new ArrayList<>();
+        for (String line : keysContent.split("\\n")) {
+            if (line.contains("almost keys")) {
+                String keysSection = line.split(":")[1].trim();
+                String[] keysGroups = keysSection.substring(1, keysSection.length() - 1).split("], \\[");
+                for (String group : keysGroups) {
+                    List<String> keyList = new ArrayList<>();
+                    for (String key : group.replace("[", "").replace("]", "").split(",")) {
+                        String trimmedKey = key.trim();
+                        keyList.add(equivalentsMap.getOrDefault(trimmedKey, trimmedKey));
+                    }
+                    almostKeys.add(keyList);
+                }
+            }
+        }
+        return almostKeys;
+    }
+    private void validateAgainstEquivalentData(Map<String, String> equivalentsMap, String dataContent, String shapesContent) {
+        validationResultsTextArea.clear();
+
+        if (equivalentsMap.isEmpty() || dataContent.isBlank() || shapesContent.isBlank()) {
+            showAlert("Error", "Ensure all files are loaded and SHACL shapes are generated.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        try {
+            for (Map.Entry<String, String> entry : equivalentsMap.entrySet()) {
+                dataContent = dataContent.replace(entry.getKey(), entry.getValue());
+            }
+
+            Model dataModel = ModelFactory.createDefaultModel();
+            Model shapesModel = ModelFactory.createDefaultModel();
+            dataModel.read(new StringReader(dataContent), null, "TURTLE");
+            shapesModel.read(new StringReader(shapesContent), null, "TURTLE");
+
+            ValidationReport report = ShaclValidator.get().validate(shapesModel.getGraph(), dataModel.getGraph());
+            if (report.conforms()) {
+                validationResultsTextArea.setText("Validation successful! The data conforms to the SHACL shapes.");
+            } else {
+                StringWriter writer = new StringWriter();
+                report.getModel().write(writer, "TURTLE");
+                validationResultsTextArea.setText("Validation failed:\n" + writer);
+            }
+        } catch (Exception ex) {
+            showAlert("Error", "Validation failed: " + ex.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private void generateShapes(List<List<String>> almostKeys) {
+        shapesTextArea.clear();
+        saveShapesButton.setDisable(true);
+
+        if (almostKeys == null || almostKeys.isEmpty()) {
+            showAlert("Error", "No almost keys available to generate shapes.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        Model model = ModelFactory.createDefaultModel();
+        String sh = "http://www.w3.org/ns/shacl#";
+        String ex = "http://example.com/ns#";
+        String owl = "http://www.w3.org/2002/07/owl#";
+
+        model.setNsPrefix("sh", sh);
+        model.setNsPrefix("ex", ex);
+        model.setNsPrefix("owl", owl);
+        model.setNsPrefix("xsd", XSD.getURI());
+
+        Property rdfType = RDF.type;
+
+        Resource sparqlTarget = model.createResource(sh + "SPARQLTarget");
+        Property shTarget = model.createProperty(sh + "target");
+        Property shPath = model.createProperty(sh + "path");
+        Property shProperty = model.createProperty(sh + "property");
+        Property shDatatype = model.createProperty(sh + "datatype");
+        Property shMaxCount = model.createProperty(sh + "maxCount");
+        Property shSelect = model.createProperty(sh + "select");
+        Property shMessage = model.createProperty(sh + "message");
+        Property shSeverity = model.createProperty(sh + "severity");
+        Property shRule = model.createProperty(sh + "rule");
+        Property shSparql = model.createProperty(sh + "sparql");
+
+        Resource shViolation = model.createResource(sh + "Violation");
+        Resource tripleRule = model.createResource(sh + "TripleRule");
+
+        int shapeIndex = 1;
+        for (List<String> key : almostKeys) {
+            Resource shape = model.createResource(ex + "Shape" + shapeIndex++);
+            shape.addProperty(rdfType, model.createResource(sh + "NodeShape"));
+
+            // Add property constraints
+            for (String property : key) {
+                Resource propertyShape = model.createResource();
+                propertyShape.addProperty(shPath, model.createProperty(ex + property));
+                propertyShape.addProperty(shDatatype, XSD.xstring);
+                propertyShape.addProperty(shMaxCount, model.createTypedLiteral(1));
+                shape.addProperty(shProperty, propertyShape);
+            }
+
+            // Build SPARQL query condition
+            String sparqlConditions = buildSparqlConditions(key);
+            String sparqlQuery = String.format("""
+    PREFIX ex: <http://example.com/ns#>
+    SELECT ?this
+    WHERE {
+        %s
+        FILTER (?this != ?other)
+    }
+    """, sparqlConditions);
+
+            // Add SPARQL constraint
+            Resource sparqlConstraint = model.createResource();
+            sparqlConstraint.addProperty(rdfType, model.createResource(sh + "SPARQLConstraint"));
+            sparqlConstraint.addProperty(shMessage, "Duplicate detected for properties: " + String.join(", ", key));
+            sparqlConstraint.addProperty(shSelect, sparqlQuery);
+            shape.addProperty(shSparql, sparqlConstraint);
+
+            // Add SPARQL target
+            Resource target = model.createResource();
+            target.addProperty(rdfType, sparqlTarget);
+            target.addProperty(shSelect, sparqlQuery);
+            shape.addProperty(shTarget, target);
+
+            // Add severity
+            shape.addProperty(shSeverity, shViolation);
+
+            // Consolidate violations for "owl:sameAs"
+            String ruleQuery = String.format("""
+    PREFIX ex: <http://example.com/ns#>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    CONSTRUCT {
+        ?this owl:sameAs ?other .
+    }
+    WHERE {
+        %s
+        FILTER (?this != ?other)
+    }
+    """, sparqlConditions);
+
+            Resource rule = model.createResource();
+            rule.addProperty(rdfType, tripleRule);
+            rule.addProperty(shSelect, ruleQuery);
+            shape.addProperty(shRule, rule);
+
+            // Add SPARQL validation constraint to check if owl:sameAs exists
+            String validationQuery = String.format("""
+    PREFIX ex: <http://example.com/ns#>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    SELECT ?this ?other
+    WHERE {
+        %s
+        FILTER (?this != ?other)
+        FILTER NOT EXISTS { ?this owl:sameAs ?other }
+    }
+    """, sparqlConditions);
+
+            Resource validationConstraint = model.createResource();
+            validationConstraint.addProperty(rdfType, model.createResource(sh + "SPARQLConstraint"));
+            validationConstraint.addProperty(shMessage, "Duplicate with the same properties must be marked as owl:sameAs.");
+            validationConstraint.addProperty(shSelect, validationQuery);
+            shape.addProperty(shSparql, validationConstraint);
+        }
+
+        // Write the generated SHACL shapes to the shapesTextArea
+        StringWriter writer = new StringWriter();
+        model.write(writer, "TURTLE");
+        String generatedShapes = writer.toString();
+        javafx.application.Platform.runLater(() -> {
+            shapesTextArea.replaceText(generatedShapes);
+            saveShapesButton.setDisable(false);
+        });
+    }
+
+//    private void generateShapes(List<List<String>> almostKeys) {
+//        shapesTextArea.clear();
+//        saveShapesButton.setDisable(true);
+//
+//        if (almostKeys == null || almostKeys.isEmpty()) {
+//            showAlert("Error", "No almost keys available to generate shapes.", Alert.AlertType.ERROR);
+//            return;
+//        }
+//
+//        Model model = ModelFactory.createDefaultModel();
+//        String sh = "http://www.w3.org/ns/shacl#";
+//        String ex = "http://example.com/ns#";
+//        String owl = "http://www.w3.org/2002/07/owl#";
+//
+//        model.setNsPrefix("sh", sh);
+//        model.setNsPrefix("ex", ex);
+//        model.setNsPrefix("owl", owl);
+//        model.setNsPrefix("xsd", XSD.getURI());
+//
+//        Property rdfType = RDF.type;
+//
+//        Resource sparqlTarget = model.createResource(sh + "SPARQLTarget");
+//        Property shTarget = model.createProperty(sh + "target");
+//        Property shPath = model.createProperty(sh + "path");
+//        Property shProperty = model.createProperty(sh + "property");
+//        Property shDatatype = model.createProperty(sh + "datatype");
+//        Property shMaxCount = model.createProperty(sh + "maxCount");
+//        Property shSelect = model.createProperty(sh + "select");
+//        Property shMessage = model.createProperty(sh + "message");
+//        Property shSeverity = model.createProperty(sh + "severity");
+//        Property shRule = model.createProperty(sh + "rule");
+//        Property shSparql = model.createProperty(sh + "sparql");
+//
+//        Resource shViolation = model.createResource(sh + "Violation");
+//        Resource tripleRule = model.createResource(sh + "TripleRule");
+//
+//        int shapeIndex = 1;
+//        for (List<String> key : almostKeys) {
+//            Resource shape = model.createResource(ex + "Shape" + shapeIndex++);
+//            shape.addProperty(rdfType, model.createResource(sh + "NodeShape"));
+//
+//            // Add property constraints
+//            for (String property : key) {
+//                Resource propertyShape = model.createResource();
+//                propertyShape.addProperty(shPath, model.createProperty(ex + property));
+//                propertyShape.addProperty(shDatatype, XSD.xstring);
+//                propertyShape.addProperty(shMaxCount, model.createTypedLiteral(1));
+//                shape.addProperty(shProperty, propertyShape);
+//            }
+//
+//            // Build SPARQL query condition
+//            String sparqlConditions = buildSparqlConditions(key);
+//            String sparqlQuery = String.format("""
+//            PREFIX ex: <http://example.com/ns#>
+//            SELECT ?this
+//            WHERE {
+//                %s
+//                FILTER (?this != ?other)
+//            }
+//        """, sparqlConditions);
+//
+//            // Add SPARQL constraint
+//            Resource sparqlConstraint = model.createResource();
+//            sparqlConstraint.addProperty(rdfType, model.createResource(sh + "SPARQLConstraint"));
+//            sparqlConstraint.addProperty(shMessage, "Duplicate detected for properties: " + String.join(", ", key));
+//            sparqlConstraint.addProperty(shSelect, sparqlQuery);
+//            shape.addProperty(shSparql, sparqlConstraint);
+//
+//            // Add SPARQL target
+//            Resource target = model.createResource();
+//            target.addProperty(rdfType, sparqlTarget);
+//            target.addProperty(shSelect, sparqlQuery);
+//            shape.addProperty(shTarget, target);
+//
+//            // Add severity
+//            shape.addProperty(shSeverity, shViolation);
+//
+//            // Add a TripleRule for owl:sameAs inference
+//            String ruleQuery = String.format("""
+//            PREFIX ex: <http://example.com/ns#>
+//            PREFIX owl: <http://www.w3.org/2002/07/owl#>
+//            PREFIX sh: <http://www.w3.org/ns/shacl#>
+//            CONSTRUCT {
+//                ?this owl:sameAs ?other .
+//            }
+//            WHERE {
+//                %s
+//                FILTER (?this != ?other)
+//            }
+//        """, sparqlConditions);
+//
+//            Resource rule = model.createResource();
+//            rule.addProperty(rdfType, tripleRule);
+//            rule.addProperty(shSelect, ruleQuery);
+//            shape.addProperty(shRule, rule);
+//
+//            // Add SPARQL validation constraint to check if owl:sameAs exists
+//            String validationQuery = String.format("""
+//            PREFIX ex: <http://example.com/ns#>
+//            PREFIX owl: <http://www.w3.org/2002/07/owl#>
+//            SELECT ?this ?other
+//            WHERE {
+//                %s
+//                FILTER (?this != ?other)
+//                FILTER NOT EXISTS { ?this owl:sameAs ?other }
+//            }
+//        """, sparqlConditions);
+//
+//            Resource validationConstraint = model.createResource();
+//            validationConstraint.addProperty(rdfType, model.createResource(sh + "SPARQLConstraint"));
+//            validationConstraint.addProperty(shMessage, "Duplicate with the same properties must be marked as owl:sameAs.");
+//            validationConstraint.addProperty(shSelect, validationQuery);
+//            shape.addProperty(shSparql, validationConstraint);
+//        }
+//
+//        // Write the generated SHACL shapes to the shapesTextArea
+//        StringWriter writer = new StringWriter();
+//        model.write(writer, "TURTLE");
+//        String generatedShapes = writer.toString();
+//        javafx.application.Platform.runLater(() -> {
+//            shapesTextArea.replaceText(generatedShapes);
+//            saveShapesButton.setDisable(false);
+//        });
+//    }
+
+//    private String buildSparqlConditions(List<String> key) {
+//        StringBuilder conditions = new StringBuilder();
+//
+//
+//        conditions.append("    ?this ");
+//        for (int i = 0; i < key.size(); i++) {
+//            String property = key.get(i);
+//            conditions.append(String.format("ex:%s ?%s", property, property));
+//            if (i < key.size() - 1) {
+//                conditions.append("; ");
+//            } else {
+//                conditions.append(".\n");
+//            }
+//        }
+//
+//        conditions.append("    ?other ");
+//        for (int i = 0; i < key.size(); i++) {
+//            String property = key.get(i);
+//            conditions.append(String.format("ex:%s ?%s", property, property));
+//            if (i < key.size() - 1) {
+//                conditions.append("; ");
+//            } else {
+//                conditions.append(".\n");
+//            }
+//        }
+//
+//        return conditions.toString();
+//    }
+private String buildSparqlConditions(List<String> key) {
+    StringBuilder conditions = new StringBuilder();
+
+    // Build the conditions to check the entire key as a combination of properties
+    for (int i = 0; i < key.size(); i++) {
+        String property = key.get(i);
+        conditions.append(String.format("    ?this ex:%s ?%s .\n", property, property));
+        conditions.append(String.format("    ?other ex:%s ?%s .\n", property, property));  // Check "other" for duplicates
+    }
+
+    return conditions.toString();
+}
+
+
+
+
+    private void saveGeneratedShapesToFile() {
+        String shapesContent = shapesTextArea.getText();
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save SHACL Shapes");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Turtle Files", "*.ttl"));
+
+        File selectedFile = fileChooser.showSaveDialog(null);
+
+        if (selectedFile != null) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(selectedFile))) {
+                writer.write(shapesContent);
+                showAlert("Success", "SHACL Shapes saved successfully!", Alert.AlertType.CONFIRMATION);
+            } catch (IOException e) {
+                showAlert("Error", "Error saving SHACL Shapes: " + e.getMessage(), Alert.AlertType.ERROR);
+            }
+        }
+    }
+
+    private void generateEquivalentsShapes() {
+
+    }
+
+    private void openRdfFileChooser() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("RDF Files", "*.nt", "*.ttl"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            selectedFilePath = selectedFile.getAbsolutePath();
+            rdfContentTextArea.clear();
+            almostKeys = new ArrayList<>();
+            outputTextArea.clear();
+            saveKeysButton.setDisable(true);
+            loadingIndicator.setVisible(true);
+            rdfContentTextArea.replaceText("Loading file content... Please wait.");
+            new Thread(() -> {
+                try {
+                    String content = new String(Files.readAllBytes(Paths.get(selectedFile.toURI())));
+                    javafx.application.Platform.runLater(() -> {
+                        rdfContentTextArea.replaceText(content);
+                        loadingIndicator.setVisible(false);
+                        generateKeysButton.setDisable(false);
+                        generateKeysButton.setOnAction(e -> generateKeys());
+                    });
+                } catch (IOException ex) {
+                    javafx.application.Platform.runLater(() -> {
+                        showAlert("Error", "Failed to read the file.", Alert.AlertType.ERROR);
+                        loadingIndicator.setVisible(false);
+                    });
+                }
+            }).start();
+        }
+    }
+
+    private void generateKeys() {
+        if (selectedFilePath != null && !selectedFilePath.isEmpty()) {
+            String sakeyCommand = "java -jar C:\\Users\\asus\\Downloads\\TER-Materials\\TER-Materials\\sakey.jar \"" + selectedFilePath + "\" 1";
+            loadingIndicator.setVisible(true);
+            outputTextArea.clear();
+            new Thread(() -> {
+                try {
+                    Process process = new ProcessBuilder(sakeyCommand.split(" ")).start();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    StringBuilder output = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        output.append(line).append("\n");
+                    }
+
+                    int exitCode = process.waitFor();
+                    javafx.application.Platform.runLater(() -> {
+                        loadingIndicator.setVisible(false);
+                        if (exitCode == 0) {
+                            outputTextArea.setText(output.toString());
+                            almostKeys = parseAlmostKeysFromOutput(output.toString());
+                            saveKeysButton.setDisable(false);
+                        } else {
+                            showAlert("Error", "The sakey tool encountered an error.", Alert.AlertType.ERROR);
+                        }
+                    });
+                } catch (IOException | InterruptedException ex) {
+                    javafx.application.Platform.runLater(() -> {
+                        showAlert("Error", "An error occurred while running the sakey tool.", Alert.AlertType.ERROR);
+                        loadingIndicator.setVisible(false);
+                    });
+                }
+            }).start();
+        } else {
+            showAlert("Error", "No RDF file selected.", Alert.AlertType.ERROR);
+        }
+    }
+
+    private List<List<String>> parseAlmostKeysFromOutput(String output) {
+        List<List<String>> keys = new ArrayList<>();
+        String almostKeysOutput = output.split("0-almost keys:")[1].split("1-non keys:")[0].trim();
+        String[] keyGroups = almostKeysOutput.split("], \\[");
+        for (String group : keyGroups) {
+            List<String> keyList = Arrays.asList(group.replace("[", "").replace("]", "").split(", "));
+            keys.add(keyList);
+        }
+
+        return keys;
+    }
+
+    private void showAlert(String title, String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    public static void main(String[] args) {
+        launch();
+    }
+}

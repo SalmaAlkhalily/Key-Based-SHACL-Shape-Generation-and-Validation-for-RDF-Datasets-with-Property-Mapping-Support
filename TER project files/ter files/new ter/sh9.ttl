@@ -1,0 +1,644 @@
+PREFIX ex:  <http://example.com/ns#>
+PREFIX sh:  <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+ex:Shape1  a                 sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: 1-non keys: [[islocatedin,  haslatitude,  haslongitude,  hasheight,  wascreatedondate],  [islocatedin,  hasheight,  haslength],  [islocatedin,  hasheight,  createdinv,  ownsinv],  [isconnectedtoinv],  [islocatedin,  wasdestroyedondate],  [haslatitude,  haslongitude,  wascreatedondate,  ownsinv],  [islocatedin,  haslatitude,  haslongitude,  ownsinv],  [islocatedin,  haslatitude,  haslongitude,  createdinv,  wascreatedondate],  [haslatitude,  haslongitude,  hasheight,  createdinv,  wascreatedondate],  [wasdestroyedondate,  wascreatedondate],  [createdinv,  wascreatedondate,  ownsinv],  [haslatitude,  wasdestroyedondate],  [islocatedin,  haslength,  createdinv],  [islocatedin,  haslatitude,  haslength],  [haslatitude,  haslongitude,  hasheight,  createdinv,  ownsinv]]";
+                               sh:resultPath  <http://example.com/ns#1-non\u0020keys:\u0020[[islocatedin>;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:1-non keys: [[islocatedin ?value .\n        ?other ex:1-non keys: [[islocatedin ?value .\n        FILTER (?this != ?other)  // Ensure duplicates across different resources\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020createdinv>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020hasheight>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[haslatitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslongitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wascreatedondate>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020hasheight>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020hasheight>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslength>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslatitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wascreatedondate]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslongitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslatitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslongitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[createdinv>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[isconnectedtoinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslongitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslatitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wascreatedondate>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020ownsinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020createdinv>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslatitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020ownsinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wasdestroyedondate]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wascreatedondate]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020ownsinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020hasheight>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslongitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wasdestroyedondate]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslength]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[haslatitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020ownsinv]]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020createdinv>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wascreatedondate]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020createdinv>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[wasdestroyedondate>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslength]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020hasheight>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslongitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wascreatedondate]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[haslatitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020ownsinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#1-non\u0020keys:\u0020[[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[haslatitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020createdinv]>
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:1-non keys: [[islocatedin ?value .\n    }\n"
+                             ] .
+
+ex:Shape3  a                 sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: 0-almost keys:[[haslatitude,  hasheight,  haslength],  [islocatedininv],  [wasdestroyedondate,  haslongitude],  [hasheight,  haslength,  createdinv],  [haslongitude,  createdinv,  wascreatedondate,  ownsinv],  [wasdestroyedondate,  haslength],  [isconnectedto],  [haslongitude,  haslength],  [hasduration],  [hasheight,  wascreatedondate,  ownsinv],  [haslatitude,  createdinv,  wascreatedondate,  ownsinv],  [haslength,  wascreatedondate],  [islocatedin,  haslongitude,  hasheight,  ownsinv],  [haslatitude,  isconnectedtoinv],  [islocatedin,  haslatitude,  createdinv,  ownsinv],  [wasdestroyedondate,  hasheight],  [createdinv,  isconnectedtoinv],  [haspages],  [haslength,  isconnectedtoinv],  [wasdestroyedondate,  isconnectedtoinv],  [wasdestroyedondate,  ownsinv],  [haslength,  ownsinv],  [islocatedin,  haslatitude,  hasheight,  createdinv],  [islocatedin,  wasdestroyedondate,  wascreatedondate],  [haslatitude,  haslength,  createdinv],  [islocatedin,  isconnectedtoinv],  [islocatedin,  hasheight,  createdinv,  wascreatedondate],  [islocatedin,  wascreatedondate,  ownsinv],  [haslongitude,  isconnectedtoinv],  [participatedininv],  [islocatedin,  haslongitude,  createdinv,  ownsinv],  [isconnectedtoinv,  wascreatedondate],  [haslatitude,  wasdestroyedondate,  wascreatedondate],  [islocatedin,  haslatitude,  hasheight,  ownsinv],  [hasheight,  isconnectedtoinv],  [islocatedin,  haslongitude,  hasheight,  createdinv],  [wasdestroyedondate,  createdinv],  [happenedininv],  [islocatedin,  haslatitude,  wasdestroyedondate],  [isconnectedtoinv,  ownsinv]]";
+                               sh:resultPath  <http://example.com/ns#0-almost\u0020keys:[[haslatitude>;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex:0-almost keys:[[haslatitude ?value .\n        ?other ex:0-almost keys:[[haslatitude ?value .\n        FILTER (?this != ?other)  // Ensure duplicates across different resources\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslatitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020isconnectedtoinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020ownsinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[wasdestroyedondate>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020isconnectedtoinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[haslongitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020isconnectedtoinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020hasheight>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslongitude]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wascreatedondate>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wasdestroyedondate>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020createdinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[haslength>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[wasdestroyedondate>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#0-almost\u0020keys:[[haslatitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020createdinv>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020hasheight>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[isconnectedto]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[haslongitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[createdinv>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020hasheight>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020ownsinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[hasheight>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020ownsinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[haslatitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020createdinv>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wascreatedondate]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020hasheight>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020ownsinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[isconnectedtoinv>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[haslatitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslatitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020createdinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020ownsinv]]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020createdinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020ownsinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wasdestroyedondate]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020hasheight>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[haslatitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020createdinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[hasheight>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslength]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[haspages]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wasdestroyedondate>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslongitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslongitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020createdinv>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[haslongitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020ownsinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020createdinv>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslength]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[participatedininv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[wasdestroyedondate>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020createdinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020ownsinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslatitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020isconnectedtoinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslength>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[isconnectedtoinv>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wascreatedondate>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslength>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wascreatedondate]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedininv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[wasdestroyedondate>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[wasdestroyedondate>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020isconnectedtoinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[hasheight>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wascreatedondate>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020createdinv>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020isconnectedtoinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslongitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[wasdestroyedondate>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[happenedininv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[haslatitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslatitude>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020ownsinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[haslength>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020haslength]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wascreatedondate]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020isconnectedtoinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020hasheight]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wascreatedondate>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020ownsinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020hasheight>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[islocatedin>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[hasduration]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wascreatedondate]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020[haslength>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020ownsinv]>
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      <http://example.com/ns#\u0020wascreatedondate]>
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex:0-almost keys:[[haslatitude ?value .\n    }\n"
+                             ] .
+
+ex:Shape2  a                 sh:NodeShape;
+        sh:SPARQLConstraint  [ a              sh:SPARQLConstraint;
+                               sh:message     "Duplicate detected for properties: ";
+                               sh:resultPath  ex:;
+                               sh:select      "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?this\n    WHERE {\n        ?this ex: ?value .\n        ?other ex: ?value .\n        FILTER (?this != ?other)  // Ensure duplicates across different resources\n    }\n"
+                             ];
+        sh:property          [ sh:datatype  xsd:string;
+                               sh:maxCount  "1"^^xsd:int;
+                               sh:path      ex:
+                             ];
+        sh:severity          sh:Violation;
+        sh:target            [ a          sh:SPARQLTarget;
+                               sh:select  "    PREFIX ex: <http://example.com/ns#>\n    SELECT ?node\n    WHERE {\n        ?node ex: ?value .\n    }\n"
+                             ] .

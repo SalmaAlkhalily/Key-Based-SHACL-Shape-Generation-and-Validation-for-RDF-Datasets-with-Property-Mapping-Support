@@ -1,0 +1,23 @@
+@prefix ex: <http://example.org/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+ex:JohnDoe a ex:Person ;
+    dc:creator ex:TheGreatGatsby ;
+    dc:title "John Doe" .
+
+ex:TheGreatGatsby a ex:Book ;
+    dc:title "The Great Gatsby" ;
+    dc:creator "F. Scott Fitzgerald" ;
+    dc:date "1925" .
+ex:JohnDoe a ex:Person ;
+    dc:creator ex:TheGreatGatsby1 ;
+    dc:title "John Doe" .
+
+ex:TheGreatGatsby1 a ex:Book ;
+    dc:title "The Great Gatsby1" ;
+    dc:creator "F. Scott Fitzgerald1" ;
+    dc:date "1925" .
+ex:JohnDoe2 a ex:Person ;
+    dc:creator ex:TheGreatGatsby1 ;
+    dc:title "John Doe" .
+

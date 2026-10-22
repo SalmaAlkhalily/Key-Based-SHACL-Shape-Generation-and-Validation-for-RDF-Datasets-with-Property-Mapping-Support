@@ -1,0 +1,15 @@
+<http://example.com/ns#http://example.org/JohnDoe> <http://example.com/ns#http://purl.org/dc/elements/1.1/creator> "http://exampleorg/TheGreatGatsby1 " .
+<http://example.com/ns#http://example.org/JohnDoe> <http://example.com/ns#http://purl.org/dc/elements/1.1/title> "John Doe " .
+<http://example.com/ns#http://example.org/JohnDoe> <http://example.com/ns#http://purl.org/dc/elements/1.1/creator> "http://exampleorg/TheGreatGatsby " .
+<http://example.com/ns#http://example.org/JohnDoe> <http://example.com/ns#http://www.w3.org/1999/02/22-rdf-syntax-ns#type> "http://exampleorg/Person " .
+<http://example.com/ns#http://example.org/TheGreatGatsby> <http://example.com/ns#http://purl.org/dc/elements/1.1/date> "1925 " .
+<http://example.com/ns#http://example.org/TheGreatGatsby> <http://example.com/ns#http://purl.org/dc/elements/1.1/creator> "F Scott Fitzgerald " .
+<http://example.com/ns#http://example.org/TheGreatGatsby> <http://example.com/ns#http://purl.org/dc/elements/1.1/title> "The Great Gatsby " .
+<http://example.com/ns#http://example.org/TheGreatGatsby> <http://example.com/ns#http://www.w3.org/1999/02/22-rdf-syntax-ns#type> "http://exampleorg/Book " .
+<http://example.com/ns#http://example.org/TheGreatGatsby1> <http://example.com/ns#http://purl.org/dc/elements/1.1/date> "1925 " .
+<http://example.com/ns#http://example.org/TheGreatGatsby1> <http://example.com/ns#http://purl.org/dc/elements/1.1/creator> "F Scott Fitzgerald1 " .
+<http://example.com/ns#http://example.org/TheGreatGatsby1> <http://example.com/ns#http://purl.org/dc/elements/1.1/title> "The Great Gatsby1 " .
+<http://example.com/ns#http://example.org/TheGreatGatsby1> <http://example.com/ns#http://www.w3.org/1999/02/22-rdf-syntax-ns#type> "http://exampleorg/Book " .
+<http://example.com/ns#http://example.org/JohnDoe2> <http://example.com/ns#http://purl.org/dc/elements/1.1/title> "John Doe " .
+<http://example.com/ns#http://example.org/JohnDoe2> <http://example.com/ns#http://purl.org/dc/elements/1.1/creator> "http://exampleorg/TheGreatGatsby1 " .
+<http://example.com/ns#http://example.org/JohnDoe2> <http://example.com/ns#http://www.w3.org/1999/02/22-rdf-syntax-ns#type> "http://exampleorg/Person " .

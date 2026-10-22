@@ -1,0 +1,3 @@
+1-non keys: [[http://example.org/publicationyear, http://example.org/title]]
+
+0-almost keys:[[http://example.org/author]]

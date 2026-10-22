@@ -1,0 +1,25 @@
+PREFIX ex:  <http://example.org/>
+PREFIX sh:  <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+ex:Shape1  a         sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:minCount  "1"^^xsd:int;
+                       sh:path      ex:author
+                     ];
+        sh:rule      [ a          sh:TripleRule;
+                       sh:select  "PREFIX ex: <http://example.org/>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nCONSTRUCT {\n    ?this owl:sameAs ?other .\n}\nWHERE {\n    ?this ex:author ?author .\n    ?other ex:author ?author .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: author";
+                       sh:select   "PREFIX ex: <http://example.org/>\nSELECT ?this\nWHERE {\n    ?this ex:author ?author .\n    ?other ex:author ?author .\n    FILTER (?this != ?other)\n}\n"
+                     ];
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate with the same properties: (author) must be marked as owl:sameAs.";
+                       sh:select   "PREFIX ex: <http://example.org/>\nPREFIX owl: <http://www.w3.org/2002/07/owl#>\nSELECT ?this ?other\nWHERE {\n    ?this ex:author ?author .\n    ?other ex:author ?author .\n    FILTER (?this != ?other)\n    FILTER NOT EXISTS { ?this owl:sameAs ?other }\n}\n"
+                     ];
+        sh:target    [ a          sh:SPARQLTarget;
+                       sh:select  "PREFIX ex: <http://example.org/>\nSELECT ?this\nWHERE {\n    ?this ex:author ?author .\n    ?other ex:author ?author .\n    FILTER (?this != ?other)\n}\n"
+                     ] .

@@ -1,0 +1,114 @@
+PREFIX sh:  <http://www.w3.org/ns/shacl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+<Shape7>  a          sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <street>
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <category>
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: http://www.okkam.org/ontology_restaurant1.owl#category, http://www.okkam.org/ontology_restaurant1.owl#street";
+                       sh:select   "SELECT ?this\nWHERE {\n        ?this ex:http://www.okkam.org/ontology_restaurant1.owl#category ?http://www.okkam.org/ontology_restaurant1.owl#category .\n    ?other ex:http://www.okkam.org/ontology_restaurant1.owl#category ?http://www.okkam.org/ontology_restaurant1.owl#category .\n    ?this ex:http://www.okkam.org/ontology_restaurant1.owl#street ?http://www.okkam.org/ontology_restaurant1.owl#street .\n    ?other ex:http://www.okkam.org/ontology_restaurant1.owl#street ?http://www.okkam.org/ontology_restaurant1.owl#street .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+<Shape2>  a          sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <phone_number>
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <street>
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: http://www.okkam.org/ontology_restaurant1.owl#street, http://www.okkam.org/ontology_restaurant1.owl#phone_number";
+                       sh:select   "SELECT ?this\nWHERE {\n        ?this ex:http://www.okkam.org/ontology_restaurant1.owl#street ?http://www.okkam.org/ontology_restaurant1.owl#street .\n    ?other ex:http://www.okkam.org/ontology_restaurant1.owl#street ?http://www.okkam.org/ontology_restaurant1.owl#street .\n    ?this ex:http://www.okkam.org/ontology_restaurant1.owl#phone_number ?http://www.okkam.org/ontology_restaurant1.owl#phone_number .\n    ?other ex:http://www.okkam.org/ontology_restaurant1.owl#phone_number ?http://www.okkam.org/ontology_restaurant1.owl#phone_number .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+<Shape5>  a          sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <phone_number>
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <name>
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: http://www.okkam.org/ontology_restaurant1.owl#name, http://www.okkam.org/ontology_restaurant1.owl#phone_number";
+                       sh:select   "SELECT ?this\nWHERE {\n        ?this ex:http://www.okkam.org/ontology_restaurant1.owl#name ?http://www.okkam.org/ontology_restaurant1.owl#name .\n    ?other ex:http://www.okkam.org/ontology_restaurant1.owl#name ?http://www.okkam.org/ontology_restaurant1.owl#name .\n    ?this ex:http://www.okkam.org/ontology_restaurant1.owl#phone_number ?http://www.okkam.org/ontology_restaurant1.owl#phone_number .\n    ?other ex:http://www.okkam.org/ontology_restaurant1.owl#phone_number ?http://www.okkam.org/ontology_restaurant1.owl#phone_number .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+<Shape8>  a          sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <category>
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <name>
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: http://www.okkam.org/ontology_restaurant1.owl#name, http://www.okkam.org/ontology_restaurant1.owl#category";
+                       sh:select   "SELECT ?this\nWHERE {\n        ?this ex:http://www.okkam.org/ontology_restaurant1.owl#name ?http://www.okkam.org/ontology_restaurant1.owl#name .\n    ?other ex:http://www.okkam.org/ontology_restaurant1.owl#name ?http://www.okkam.org/ontology_restaurant1.owl#name .\n    ?this ex:http://www.okkam.org/ontology_restaurant1.owl#category ?http://www.okkam.org/ontology_restaurant1.owl#category .\n    ?other ex:http://www.okkam.org/ontology_restaurant1.owl#category ?http://www.okkam.org/ontology_restaurant1.owl#category .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+<Shape3>  a          sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <has_address>
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: http://www.okkam.org/ontology_restaurant1.owl#has_address";
+                       sh:select   "SELECT ?this\nWHERE {\n        ?this ex:http://www.okkam.org/ontology_restaurant1.owl#has_address ?http://www.okkam.org/ontology_restaurant1.owl#has_address .\n    ?other ex:http://www.okkam.org/ontology_restaurant1.owl#has_address ?http://www.okkam.org/ontology_restaurant1.owl#has_address .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+<Shape6>  a          sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <phone_number>
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <category>
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: http://www.okkam.org/ontology_restaurant1.owl#category, http://www.okkam.org/ontology_restaurant1.owl#phone_number";
+                       sh:select   "SELECT ?this\nWHERE {\n        ?this ex:http://www.okkam.org/ontology_restaurant1.owl#category ?http://www.okkam.org/ontology_restaurant1.owl#category .\n    ?other ex:http://www.okkam.org/ontology_restaurant1.owl#category ?http://www.okkam.org/ontology_restaurant1.owl#category .\n    ?this ex:http://www.okkam.org/ontology_restaurant1.owl#phone_number ?http://www.okkam.org/ontology_restaurant1.owl#phone_number .\n    ?other ex:http://www.okkam.org/ontology_restaurant1.owl#phone_number ?http://www.okkam.org/ontology_restaurant1.owl#phone_number .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+<Shape1>  a          sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <street>
+                     ];
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <name>
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: http://www.okkam.org/ontology_restaurant1.owl#name, http://www.okkam.org/ontology_restaurant1.owl#street";
+                       sh:select   "SELECT ?this\nWHERE {\n        ?this ex:http://www.okkam.org/ontology_restaurant1.owl#name ?http://www.okkam.org/ontology_restaurant1.owl#name .\n    ?other ex:http://www.okkam.org/ontology_restaurant1.owl#name ?http://www.okkam.org/ontology_restaurant1.owl#name .\n    ?this ex:http://www.okkam.org/ontology_restaurant1.owl#street ?http://www.okkam.org/ontology_restaurant1.owl#street .\n    ?other ex:http://www.okkam.org/ontology_restaurant1.owl#street ?http://www.okkam.org/ontology_restaurant1.owl#street .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .
+
+<Shape4>  a          sh:NodeShape;
+        sh:property  [ sh:datatype  xsd:string;
+                       sh:maxCount  "1"^^xsd:int;
+                       sh:path      <is_in_city>
+                     ];
+        sh:severity  sh:Violation;
+        sh:sparql    [ a           sh:SPARQLConstraint;
+                       sh:message  "Duplicate detected for properties: http://www.okkam.org/ontology_restaurant1.owl#is_in_city";
+                       sh:select   "SELECT ?this\nWHERE {\n        ?this ex:http://www.okkam.org/ontology_restaurant1.owl#is_in_city ?http://www.okkam.org/ontology_restaurant1.owl#is_in_city .\n    ?other ex:http://www.okkam.org/ontology_restaurant1.owl#is_in_city ?http://www.okkam.org/ontology_restaurant1.owl#is_in_city .\n\n    FILTER (?this != ?other)\n}\n"
+                     ] .

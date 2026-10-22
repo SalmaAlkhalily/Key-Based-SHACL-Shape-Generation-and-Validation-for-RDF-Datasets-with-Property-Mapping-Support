@@ -1,0 +1,4 @@
+islocatedininv equivalent located .
+haslatitude equivalent latitude .
+haslength equivalent length .
+hasheight equivalent height .

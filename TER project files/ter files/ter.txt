@@ -1,0 +1,634 @@
+package Main_pcg;
+
+import org.apache.jena.graph.*;
+import org.apache.jena.rdf.model.*;
+import org.apache.jena.shacl.*;
+import org.apache.jena.util.FileManager;
+import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.shacl.vocabulary.SHACL;
+import java.io.*;
+import org.apache.jena.rdf.model.*;
+import org.apache.jena.shacl.vocabulary.SHACL;
+import org.apache.jena.vocabulary.RDF;
+import java.util.*;
+import org.apache.jena.vocabulary.RDFS;
+import java.util.regex.*;
+
+public class First_class {
+	public static Model loadRDFModel(String rdfFilePath) {
+        Model rdfModel = ModelFactory.createDefaultModel();
+        // Load the RDF file into the model
+        FileManager.get().readModel(rdfModel, rdfFilePath);
+        return rdfModel;
+    }
+    private static String captureCommandOutput(String command) {
+        StringBuilder output = new StringBuilder();
+
+        try {
+            // Execute the command
+            Process process = Runtime.getRuntime().exec(command);
+            System.out.println(command);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+         // Read the output from the command
+            System.out.println("Here is the standard output of the command:\n");
+           
+            String s = null;
+            while ((s = reader.readLine()) != null) {
+            	output.append(s).append("\n");
+                System.out.println("kkkkkkk"+s);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return output.toString();
+    }
+    private static Map<String, List<String[]>> parseSAKeyOutput(String saKeyOutput) {
+        // Initialize a map to hold the results
+        Map<String, List<String[]>> keys = new HashMap<>();
+        keys.put("1-non", new ArrayList<>());
+        keys.put("0-almost", new ArrayList<>());
+        
+        // Define regular expressions to match the keys
+        String nonKeysRegex = "1-non keys:\\s*\\[\\[([^]]+)\\]";
+        String almostKeysRegex = "0-almost keys:\\s*\\[\\[([^]]+)\\]";
+
+        // Use regular expressions to find all matches for non and almost keys
+        Pattern nonKeysPattern = Pattern.compile(nonKeysRegex);
+        Pattern almostKeysPattern = Pattern.compile(almostKeysRegex);
+
+        // Match non-keys
+        Matcher nonKeysMatcher = nonKeysPattern.matcher(saKeyOutput);
+        if (nonKeysMatcher.find()) {
+            String nonKeysData = nonKeysMatcher.group(1);
+            processKeyData(nonKeysData, keys.get("1-non"));
+        }
+
+        // Match almost-keys
+        Matcher almostKeysMatcher = almostKeysPattern.matcher(saKeyOutput);
+        if (almostKeysMatcher.find()) {
+            String almostKeysData = almostKeysMatcher.group(1);
+            processKeyData(almostKeysData, keys.get("0-almost"));
+        }
+
+        return keys;
+    }
+
+    private static void processKeyData(String keyData, List<String[]> keyList) {
+        // Split the keys by "], ["
+        String[] keyGroups = keyData.split("\\],\\s*\\[");
+
+        // Process each key group
+        for (String keyGroup : keyGroups) {
+            // Clean the key group and split by comma
+            String[] keys = keyGroup.replace("[", "").replace("]", "").split(",\\s*");
+            keyList.add(keys);
+        }
+    }
+    
+//    private static Map<String, List<String[]>> parseSAKeyOutput(String saKeyOutput) {
+//System.out.println("gggggggggggggggg  "+saKeyOutput);
+//    	Map<String, List<String[]>> keys = new HashMap<>();
+//        keys.put("1-non", new ArrayList<>());
+//        keys.put("0-almost", new ArrayList<>());
+//
+//        // Split the output into lines
+//        String[] lines = saKeyOutput.split("\n");
+//
+//        // Variable to store the current key list we are processing
+//        List<String[]> currentKeyList = null;
+//
+//        // Process the output line by line
+//        for (String line : lines) {
+//            line = line.trim();
+//
+//            // Detect the section header for non-keys and almost keys
+//            if (line.startsWith("1-non keys:")) {
+//                currentKeyList = keys.get("1-non");
+//            } else if (line.startsWith("0-almost keys:")) {
+//                currentKeyList = keys.get("0-almost");
+//            } else if (line.contains("[") && line.contains("]")) {
+//                // Extract key combinations between brackets
+//                String keyCombination = line.trim();
+//                // Remove the brackets and split by commas
+//                keyCombination = keyCombination.substring(1, keyCombination.length() - 1).trim();
+//                String[] keyParts = keyCombination.split(",\\s*");
+//                currentKeyList.add(keyParts);
+//            }
+//        }
+//System.out.println("lllllllllllll         "+keys);
+//        return keys;
+//    }
+
+
+	public static void main(String[] args) {
+		System.out.print("Welcome");
+ // Define 1-non-keys and 0-almost keys as string arrays
+        
+        String sakeyCommand = "java -jar C:\\Users\\asus\\Downloads\\TER-Materials\\TER-Materials\\sakey.jar \"C:\\Users\\asus\\Downloads\\TER-Materials\\TER-Materials\\YA_Building.nt\" 1";
+        // Capture the output of the SAKey tool from the command line
+        String saKeyOutput = captureCommandOutput(sakeyCommand);
+      System.out.println("yyyyyyyyyyyyyyyyy     "+saKeyOutput);
+        
+        
+        Map<String, List<String[]>> keys = parseSAKeyOutput(saKeyOutput);
+
+        // Print the extracted keys (1-non-keys and 0-almost keys)
+//        System.out.println("1-non keys:"+keys);
+//        keys.get("1-non").forEach(key -> System.out.println(Arrays.toString(key)));
+        
+		 // Specify the path to your RDF file
+        String rdfFilePath = "C:\\Users\\asus\\Downloads\\TER-Materials\\TER-Materials\\YA_Building.nt";
+        
+        // Load RDF data into the model
+        Model rdfModel = loadRDFModel(rdfFilePath);
+        
+        // Optionally print out the RDF model to see what it contains
+       // rdfModel.write(System.out, "TURTLE");
+     // Load the RDF model
+        // Parse the captured output
+       
+        // Create a SHACL model for shapes
+        Model shaclModel = ModelFactory.createDefaultModel();
+
+       
+
+       
+        
+       
+    
+
+
+        createSHACLShapes(shaclModel, keys);
+
+        // Save SHACL shapes to file (optional)
+        try (OutputStream out = new FileOutputStream("C:\\Users\\asus\\Downloads\\TER-Materials\\TER-Materials\\shapes.ttl")) {
+            shaclModel.write(out, "TTL");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        shaclModel.write(System.out, "TTL");
+        
+        
+        
+        
+        
+        
+        
+
+
+}
+	private static void createSHACLShapeForKey(Model shaclModel, String shapeName, String[] properties) {
+	    // Define SHACL namespace
+	    String shaclNS = "http://www.w3.org/ns/shacl#";
+
+	    // Create a new SHACL node shape
+	    Resource shape = shaclModel.createResource()
+	            .addProperty(RDF.type, shaclModel.createResource(shaclNS + "NodeShape"))
+	            .addProperty(shaclModel.createProperty(shaclNS + "targetClass"), shaclModel.createResource("http://example.org/YourTargetClass"))
+	            .addProperty(RDFS.label, shapeName);
+
+	    // Add property shapes for each property in the key
+	    for (String property : properties) {
+	        Resource propertyShape = shaclModel.createResource()
+	                .addProperty(RDF.type, shaclModel.createResource(shaclNS + "PropertyShape"))
+	                .addProperty(shaclModel.createProperty(shaclNS + "path"), shaclModel.createProperty("http://example.org/" + property))
+	                .addProperty(shaclModel.createProperty(shaclNS + "uniqueLang"), "true"); // Example constraint for uniqueness
+
+	        // Attach the property shape to the main shape
+	        shape.addProperty(shaclModel.createProperty(shaclNS + "property"), propertyShape);
+	    }
+	}
+	private static void createSHACLShapes(Model shaclModel, Map<String, List<String[]>> keys) {
+		System.out.println("hhhhhhhhhhhhh"+keys.get("0-almost"));
+	    // Loop over the 1-non keys
+//	    List<String[]> nonKeys = keys.get("1-non");
+//	    for (int i = 0; i < nonKeys.size(); i++) {
+//	        createSHACLShapeForKey(shaclModel, "NonKey_" + (i + 1), nonKeys.get(i));
+//	    }
+
+	    // Loop over the 0-almost keys
+	    List<String[]> almostKeys = keys.get("0-almost");
+	    for (int i = 0; i < almostKeys.size(); i++) {
+	        createSHACLShapeForKey(shaclModel, "AlmostKey_" + (i + 1), almostKeys.get(i));
+	    }
+	}
+
+    
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+***********************************************************************************************************************
+package Main_pcg;
+
+import org.apache.jena.graph.*;
+import org.apache.jena.rdf.model.*;
+import org.apache.jena.shacl.*;
+import org.apache.jena.util.FileManager;
+import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.shacl.vocabulary.SHACL;
+import java.io.*;
+import org.apache.jena.rdf.model.*;
+import org.apache.jena.shacl.vocabulary.SHACL;
+import org.apache.jena.vocabulary.RDF;
+import java.util.*;
+import org.apache.jena.vocabulary.RDFS;
+import java.util.regex.*;
+
+public class First_class {
+	public static Model loadRDFModel(String rdfFilePath) {
+        Model rdfModel = ModelFactory.createDefaultModel();
+        // Load the RDF file into the model
+        FileManager.get().readModel(rdfModel, rdfFilePath);
+        return rdfModel;
+    }
+    private static String captureCommandOutput(String command) {
+        StringBuilder output = new StringBuilder();
+
+        try {
+            // Execute the command
+            Process process = Runtime.getRuntime().exec(command);
+            System.out.println(command);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+         // Read the output from the command
+            System.out.println("Here is the standard output of the command:\n");
+           
+            String s = null;
+            while ((s = reader.readLine()) != null) {
+            	output.append(s).append("\n");
+                System.out.println("kkkkkkk"+s);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return output.toString();
+    }
+    private static Map<String, List<String[]>> parseSAKeyOutput(String saKeyOutput) {
+        // Initialize a map to hold the results
+        Map<String, List<String[]>> keys = new HashMap<>();
+        keys.put("1-non", new ArrayList<>());
+        keys.put("0-almost", new ArrayList<>());
+        
+        // Define regular expressions to match the keys
+        String nonKeysRegex = "1-non keys:\\s*\\[\\[([^]]+)\\]";
+        String almostKeysRegex = "0-almost keys:\\s*\\[\\[([^]]+)\\]";
+
+        // Use regular expressions to find all matches for non and almost keys
+        Pattern nonKeysPattern = Pattern.compile(nonKeysRegex);
+        Pattern almostKeysPattern = Pattern.compile(almostKeysRegex);
+
+        // Match non-keys
+        Matcher nonKeysMatcher = nonKeysPattern.matcher(saKeyOutput);
+        if (nonKeysMatcher.find()) {
+            String nonKeysData = nonKeysMatcher.group(1);
+            processKeyData(nonKeysData, keys.get("1-non"));
+        }
+
+        // Match almost-keys
+        Matcher almostKeysMatcher = almostKeysPattern.matcher(saKeyOutput);
+        if (almostKeysMatcher.find()) {
+            String almostKeysData = almostKeysMatcher.group(1);
+            processKeyData(almostKeysData, keys.get("0-almost"));
+        }
+
+        return keys;
+    }
+
+    private static void processKeyData(String keyData, List<String[]> keyList) {
+        // Split the keys by "], ["
+        String[] keyGroups = keyData.split("\\],\\s*\\[");
+
+        // Process each key group
+        for (String keyGroup : keyGroups) {
+            // Clean the key group and split by comma
+            String[] keys = keyGroup.replace("[", "").replace("]", "").split(",\\s*");
+            keyList.add(keys);
+        }
+    }
+   
+
+
+	public static void main(String[] args) {
+		System.out.print("Welcome");
+ // Define 1-non-keys and 0-almost keys as string arrays
+        
+        String sakeyCommand = "java -jar C:\\Users\\asus\\Downloads\\TER-Materials\\TER-Materials\\sakey.jar \"C:\\Users\\asus\\Downloads\\TER-Materials\\TER-Materials\\YA_Building.nt\" 1";
+        // Capture the output of the SAKey tool from the command line
+        String saKeyOutput = captureCommandOutput(sakeyCommand);
+      System.out.println("yyyyyyyyyyyyyyyyy     "+saKeyOutput);
+        
+        
+        Map<String, List<String[]>> keys = parseSAKeyOutput(saKeyOutput);
+		 // Specify the path to your RDF file
+        String rdfFilePath = "C:\\Users\\asus\\Downloads\\TER-Materials\\TER-Materials\\YA_Building.nt";
+        
+        // Load RDF data into the model
+        Model shaclModel = ModelFactory.createDefaultModel();
+        createSHACLShapes(shaclModel, keys);
+
+        // Save SHACL shapes to file (optional)
+        try (OutputStream out = new FileOutputStream("C:\\Users\\asus\\Downloads\\TER-Materials\\TER-Materials\\shapes.ttl")) {
+            shaclModel.write(out, "TTL");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        shaclModel.write(System.out, "TTL");
+}
+	private static void createSHACLShapeForKey(Model shaclModel, String shapeName, String[] properties) {
+	    // Define SHACL namespace
+	    String shaclNS = "http://www.w3.org/ns/shacl#";
+
+	    // Create a new SHACL node shape
+	    Resource shape = shaclModel.createResource()
+	            .addProperty(RDF.type, shaclModel.createResource(shaclNS + "NodeShape"))
+	            .addProperty(shaclModel.createProperty(shaclNS + "targetClass"), shaclModel.createResource("http://example.org/YourTargetClass"))
+	            .addProperty(RDFS.label, shapeName);
+
+	    // Add property shapes for each property in the key
+	    for (String property : properties) {
+	        Resource propertyShape = shaclModel.createResource()
+	                .addProperty(RDF.type, shaclModel.createResource(shaclNS + "PropertyShape"))
+	                .addProperty(shaclModel.createProperty(shaclNS + "path"), shaclModel.createProperty("http://example.org/" + property))
+	                .addProperty(shaclModel.createProperty(shaclNS + "uniqueLang"), "true"); // Example constraint for uniqueness
+
+	        // Attach the property shape to the main shape
+	        shape.addProperty(shaclModel.createProperty(shaclNS + "property"), propertyShape);
+	    }
+	}
+	private static void createSHACLShapes(Model shaclModel, Map<String, List<String[]>> keys) {
+		System.out.println("hhhhhhhhhhhhh"+keys.get("0-almost"));
+	    // Loop over the 1-non keys
+//	    List<String[]> nonKeys = keys.get("1-non");
+//	    for (int i = 0; i < nonKeys.size(); i++) {
+//	        createSHACLShapeForKey(shaclModel, "NonKey_" + (i + 1), nonKeys.get(i));
+//	    }
+
+	    // Loop over the 0-almost keys
+	    List<String[]> almostKeys = keys.get("0-almost");
+	    for (int i = 0; i < almostKeys.size(); i++) {
+	        createSHACLShapeForKey(shaclModel, "AlmostKey_" + (i + 1), almostKeys.get(i));
+	    }
+	}
+
+    
+
+}
+
+
+
+
+
+*******************************************************
+
+package Main_pcg;
+
+import org.apache.jena.graph.*;
+import org.apache.jena.rdf.model.*;
+import org.apache.jena.shacl.*;
+import org.apache.jena.shacl.engine.Shacl;
+import org.apache.jena.util.FileManager;
+import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.shacl.vocabulary.SHACL;
+import java.io.*;
+import org.apache.jena.rdf.model.*;
+import org.apache.jena.shacl.vocabulary.SHACL;
+import org.apache.jena.vocabulary.RDF;
+import java.util.*;
+import org.apache.jena.vocabulary.RDFS;
+import java.util.regex.*;
+
+public class First_class {
+	public static Model loadRDFModel(String rdfFilePath) {
+        Model rdfModel = ModelFactory.createDefaultModel();
+        // Load the RDF file into the model
+        FileManager.get().readModel(rdfModel, rdfFilePath);
+        return rdfModel;
+    }
+    private static String captureCommandOutput(String command) {
+        StringBuilder output = new StringBuilder();
+
+        try {
+            // Execute the command
+            Process process = Runtime.getRuntime().exec(command);
+            System.out.println(command);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+         // Read the output from the command
+            System.out.println("Here is the standard output of the command:\n");
+           
+            String s = null;
+            while ((s = reader.readLine()) != null) {
+            	output.append(s).append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return output.toString();
+    }
+    private static Map<String, List<String[]>> parseSAKeyOutput(String saKeyOutput) {
+        // Initialize a map to hold the results
+        Map<String, List<String[]>> keys = new HashMap<>();
+        keys.put("1-non", new ArrayList<>());
+        keys.put("0-almost", new ArrayList<>());
+        
+        // Define regular expressions to match the keys
+        String nonKeysRegex = "1-non keys:\\s*\\[\\[([^]]+)\\]";
+        String almostKeysRegex = "0-almost keys:\\s*\\[\\[([^]]+)\\]";
+
+        // Use regular expressions to find all matches for non and almost keys
+        Pattern nonKeysPattern = Pattern.compile(nonKeysRegex);
+        Pattern almostKeysPattern = Pattern.compile(almostKeysRegex);
+
+        // Match non-keys
+        Matcher nonKeysMatcher = nonKeysPattern.matcher(saKeyOutput);
+        if (nonKeysMatcher.find()) {
+            String nonKeysData = nonKeysMatcher.group(1);
+            processKeyData(nonKeysData, keys.get("1-non"));
+        }
+
+        // Match almost-keys
+        Matcher almostKeysMatcher = almostKeysPattern.matcher(saKeyOutput);
+        if (almostKeysMatcher.find()) {
+            String almostKeysData = almostKeysMatcher.group(1);
+            processKeyData(almostKeysData, keys.get("0-almost"));
+        }
+
+        return keys;
+    }
+
+    private static void processKeyData(String keyData, List<String[]> keyList) {
+        // Split the keys by "], ["
+        String[] keyGroups = keyData.split("\\],\\s*\\[");
+
+        // Process each key group
+        for (String keyGroup : keyGroups) {
+            // Clean the key group and split by comma
+            String[] keys = keyGroup.replace("[", "").replace("]", "").split(",\\s*");
+            keyList.add(keys);
+        }
+    }
+   
+
+
+	public static void main(String[] args) {
+		System.out.print("Welcome");
+ // Define 1-non-keys and 0-almost keys as string arrays
+        
+        String sakeyCommand = "java -jar C:\\Users\\asus\\Downloads\\TER-Materials\\TER-Materials\\sakey.jar \"C:\\Users\\asus\\Downloads\\TER-Materials\\TER-Materials\\YA_Building.nt\" 1";
+        // Capture the output of the SAKey tool from the command line
+        String saKeyOutput = captureCommandOutput(sakeyCommand);
+      System.out.println(saKeyOutput);
+        
+        
+        Map<String, List<String[]>> keys = parseSAKeyOutput(saKeyOutput);
+		 // Specify the path to your RDF file
+        String rdfFilePath = "C:\\Users\\asus\\Downloads\\TER-Materials\\TER-Materials\\YA_Building.nt";
+        
+        // Load RDF data into the model
+        Model shaclModel = ModelFactory.createDefaultModel();
+        createSHACLShapes(shaclModel, keys);
+
+        // Save SHACL shapes to file (optional)
+        try (OutputStream out = new FileOutputStream("C:\\Users\\asus\\Downloads\\TER-Materials\\TER-Materials\\shapes.ttl")) {
+            shaclModel.write(out, "TTL");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        shaclModel.write(System.out, "TTL");
+        
+     // Load RDF data into the model
+//        Model rdfModel = loadRDFModel("C:\\Users\\asus\\Downloads\\TER-Materials\\TER-Materials\\YA_Building.nt");
+//
+//     // Validate RDF data against SHACL shapes
+//  
+//     ValidationReport report = ShaclValidator.get().validate(shaclModel.getGraph(), rdfModel.getGraph());
+//
+//     // Print validation results
+//     System.out.println("Validation Report:");
+//     report.getEntries().forEach(entry -> {
+//         System.out.println(entry.message());
+//     });
+        Model rdfModel = loadRDFModel("C:\\Users\\asus\\Downloads\\TER-Materials\\TER-Materials\\YA_Building.nt");
+     rdfModel.write(System.out, "TTL");
+      shaclModel.write(System.out, "TTL");
+   //   
+//        ValidationReport report = ShaclValidator.get().validate(shaclModel.getGraph(), rdfModel.getGraph());
+//        System.out.println("Validation Report size: " + report.getEntries().size());
+//        report.getEntries().forEach(entry -> System.out.println(entry.message()));
+        
+//        try {
+//        	
+//           ValidationReport report = ShaclValidator.get().validate(shaclModel.getGraph(), rdfModel.getGraph());
+//
+//            System.out.println("Validation Report:"+report.getEntries().size());
+//            report.getEntries().forEach(entry -> System.out.println(entry.message()));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+        
+}
+	private static void createSHACLShapeForKey(Model shaclModel, String shapeName, String[] properties) {
+	    // Define SHACL namespace
+	    String shaclNS = "http://www.w3.org/ns/shacl#";
+
+	    // Create a new SHACL node shape
+	    Resource shape = shaclModel.createResource()
+	            .addProperty(RDF.type, shaclModel.createResource(shaclNS + "NodeShape"))
+	            .addProperty(shaclModel.createProperty(shaclNS + "targetClass"), shaclModel.createResource("http://example.org/YourTargetClass"))
+	            .addProperty(RDFS.label, shapeName);
+
+	    // Add property shapes for each property in the key
+	    for (String property : properties) {
+	        Resource propertyShape = shaclModel.createResource()
+	                .addProperty(RDF.type, shaclModel.createResource(shaclNS + "PropertyShape"))
+	                .addProperty(shaclModel.createProperty(shaclNS + "path"), shaclModel.createProperty("http://example.org/" + property))
+	                .addProperty(shaclModel.createProperty(shaclNS + "uniqueLang"), "true");
+	              //  .addProperty(shaclModel.createProperty(shaclNS + "minCount"), 1);
+
+	        // Attach the property shape to the main shape
+	        shape.addProperty(shaclModel.createProperty(shaclNS + "property"), propertyShape);
+	    }
+	}
+	private static void createSHACLShapes(Model shaclModel, Map<String, List<String[]>> keys) {
+		System.out.println("hhhhhhhhhhhhh"+keys.get("0-almost"));
+	    // Loop over the 1-non keys
+
+	    // Loop over the 0-almost keys
+	    List<String[]> almostKeys = keys.get("0-almost");
+	    for (int i = 0; i < almostKeys.size(); i++) {
+	        createSHACLShapeForKey(shaclModel, "AlmostKey_" + (i + 1), almostKeys.get(i));
+	    }
+	}
+
+    
+
+}
+
+
+
+
+********************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

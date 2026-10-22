@@ -1,0 +1,12 @@
+@prefix ex: <http://example.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:book1 a ex:Book ;
+    ex:title "The Great Gatsby" ;
+    ex:author "F. Scott Fitzgerald" ;
+    ex:publicationYear "1925" .
+
+ex:book2 a ex:Book ;
+    ex:title "1984" ;
+    ex:author "George Orwell" ;
+    ex:publicationYear "1949" .
